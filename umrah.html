@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Umrah Packages | Paradise World Travels</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --gold: #c69f4a;
+      --gold-light: #e2c47a;
+      --gold-dark: #9a7a30;
+      --blue: #00468a;
+      --blue-dark: #002d5c;
+      --black: #111111;
+      --white: #ffffff;
+      --gray-light: #f5f5f5;
+      --gray: #e0e0e0;
+      --text-dark: #222222;
+      --text-mid: #555555;
+      --shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+      --shadow-gold: 0 8px 30px rgba(198, 159, 74, 0.3);
+      --radius: 12px;
+      --transition: 0.35s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--black);
+      padding: 0 4%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+      transition: var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(0, 0, 0, .97);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, .6);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .logo-img {
+      width: auto;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      font-size: .88rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: var(--transition);
+      letter-spacing: .3px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+      background: rgba(198, 159, 74, .12);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+      color: var(--black) !important;
+      font-weight: 700 !important;
+      padding: 9px 20px !important;
+      border-radius: 25px !important;
+      box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(198, 159, 74, .5);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background: var(--black);
+      z-index: 999;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      border-top: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu a {
+      color: #ccc;
+      font-size: 1rem;
+      padding: 12px 16px;
+      border-radius: 8px;
+      display: block;
+      width: 100%;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: var(--gold);
+      background: rgba(198, 159, 74, .1);
+    }
+
+    .page-hero {
+      position: relative;
+      height: 380px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 70px;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, .6), rgba(0, 70, 138, .5));
+    }
+
+    .umrah-hero {
+      background-image: url('https://images.unsplash.com/photo-1588987278192-09fd57dd55ad?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .page-hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .page-hero-content h1 span {
+      color: var(--gold);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: .85rem;
+      color: rgba(255, 255, 255, .7);
+    }
+
+    .breadcrumb a {
+      color: var(--gold-light);
+      transition: var(--transition);
+    }
+
+    .breadcrumb a:hover {
+      color: var(--gold);
+    }
+
+    .breadcrumb i {
+      font-size: .65rem;
+    }
+
+    section {
+      padding: 90px 6%;
+      background-color: #faebd796;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-title span {
+      color: var(--blue);
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-header.center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gold-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+      border-radius: 2px;
+      margin: 16px 0;
+    }
+
+    .center .gold-divider {
+      margin: 16px auto;
+    }
+
+    .umrah-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .umrah-intro-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 420px;
+    }
+
+    .umrah-intro-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .about-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .about-list-item i {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-top: 3px;
+    }
+
+    .about-list-item span {
+      font-size: .92rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 36px;
+      border-radius: 50px;
+      box-shadow: 0 6px 25px rgba(198, 159, 74, .45);
+      transition: var(--transition);
+      letter-spacing: .3px;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(198, 159, 74, .55);
+    }
+
+    .package-tiers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 50px auto 0;
+      max-width: 1000px;
+    }
+
+    .tier-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--gray);
+      transition: var(--transition);
+      position: relative;
+      background: var(--white);
+    }
+
+    .tier-card.featured {
+      border-color: var(--gold);
+    }
+
+    .tier-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+
+    .tier-header {
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .tier-card.economy .tier-header {
+      background: linear-gradient(135deg, #444, #222);
+    }
+
+    .tier-card.deluxe .tier-header {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    }
+
+    .tier-badge {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .tier-card.economy .tier-badge {
+      color: #aaa;
+    }
+
+    .tier-card.deluxe .tier-badge {
+      color: rgba(255, 255, 255, .8);
+    }
+
+    .tier-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .tier-price {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-top: 8px;
+      color: var(--gold);
+    }
+
+    .tier-price sup {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .tier-price sub {
+      font-size: .8rem;
+      font-weight: 400;
+    }
+
+    .tier-body {
+      padding: 24px;
+    }
+
+    .tier-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .tier-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .88rem;
+      color: var(--text-mid);
+    }
+
+    .tier-feature i {
+      color: var(--gold);
+      font-size: .85rem;
+      min-width: 14px;
+    }
+
+    .tier-featured-tag {
+      position: absolute;
+      top: 12px;
+      right: -28px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 5px 38px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transform: rotate(35deg);
+      z-index: 2;
+    }
+
+    .btn-book {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      font-size: .82rem;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 25px;
+      transition: var(--transition);
+      letter-spacing: .3px;
+      display: inline-block;
+    }
+
+    .btn-book:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 30px;
+      border: 1px solid var(--gray);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .08);
+    }
+
+    .info-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+
+    .info-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-card li {
+      color: var(--text-mid);
+      font-size: .92rem;
+      line-height: 1.5;
+      display: flex;
+      gap: 10px;
+    }
+
+    .info-card li i {
+      color: var(--gold);
+      margin-top: 4px;
+      min-width: 16px;
+    }
+
+    .contact-box {
+      max-width: 900px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 34px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 18px;
+      color: var(--gold-light);
+    }
+
+    .contact-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      background: rgba(255, 255, 255, .09);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 10px;
+      padding: 16px;
+      line-height: 1.6;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+    }
+
+    .contact-item a {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    footer {
+      background: var(--black);
+      color: rgba(255, 255, 255, .75);
+      padding: 70px 6% 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand p {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: #aaa;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 20px;
+      letter-spacing: .5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: #aaa;
+      font-size: .88rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      padding-left: 4px;
+    }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: .9rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black)
+        }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: .85rem;
+      color: #aaa;
+    }
+
+    .footer-contact-item i {
+      color: var(--gold);
+      margin-top: 3px;
+      min-width: 16px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p {
+      font-size: .82rem;
+      color: #666;
+    }
+
+    .footer-bottom span {
+      color: var(--gold);
+    }
+
+    #scrollTop {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    #scrollTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #scrollTop:hover {
+      transform: translateY(-3px);
+    }
+
+    .reveal,
+    .reveal-left,
+    .reveal-right {
+      opacity: 0;
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal {
+      transform: translateY(40px);
+    }
+
+    .reveal-left {
+      transform: translateX(-40px);
+    }
+
+    .reveal-right {
+      transform: translateX(40px);
+    }
+
+    .reveal.visible,
+    .reveal-left.visible,
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    .delay-1 {
+      transition-delay: .1s !important;
+    }
+
+    .delay-2 {
+      transition-delay: .2s !important;
+    }
+
+    @media(max-width:1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 60px 5%;
+      }
+
+      .umrah-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .package-tiers {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html">
+      <img src="images/logo.png" alt="Paradise World Travels Logo" class="logo-img">
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="umrah.html" class="active">Umrah</a>
+      <a href="hajj.html">Hajj</a>
+      <a href="packages.html">Packages</a>
+      <a href="offers.html">Offers</a>
+      <a href="visa.html">Visa & Flights</a>
+
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta" href="contact.html">Book Now</a>
+    </div>
+
+    <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="umrah.html" class="active">Umrah</a>
+    <a href="hajj.html">Hajj</a>
+    <a href="packages.html">Packages</a>
+    <a href="offers.html">Offers</a>
+    <a href="visa.html">Visa & Flights</a>
+
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main>
+    <div class="page-hero umrah-hero">
+      <div class="page-hero-content">
+        <h1><span>Umrah</span> Packages</h1>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right"></i>
+          <span>Umrah</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="hajjsection">
+      <div class="umrah-intro">
+        <div class="reveal-left">
+          <span class="section-label">Sacred Journey</span>
+          <h2 class="section-title">Perform Umrah with <span>Peace & Ease</span></h2>
+          <div class="gold-divider"></div>
+          <p style="color:var(--text-mid);line-height:1.8;margin-bottom:20px">
+            Experience your blessed Umrah journey with Paradise World Travels. Our packages are carefully planned from
+            Ahmedabad to Ahmedabad with flights, visa, meals, transport, ziyarat and experienced guidance throughout the
+            tour.
+          </p>
+
+          <div class="about-list">
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Ahmedabad to Ahmedabad return air
+                ticket included</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>19–20 days complete Umrah
+                package</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>03 times meals daily during the
+                tour</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Local Ziyarat in Makkah Sharif &
+                Madinah Sharif</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Tayef & Badar Ziyarat included</span>
+            </div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Experienced Umrah Rehbar with the
+                group</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Total 04 Umrah from our tour</span>
+            </div>
+          </div>
+
+          <a class="btn-primary" href="contact.html">Enquire Now &nbsp;<i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="umrah-intro-img reveal-right">
+          <img
+            src="https://images.unsplash.com/photo-1713239060784-e6ed820a0715?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Makkah Kaaba">
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--gray-light)">
+      <div class="section-header center reveal">
+        <span class="section-label">Choose Your Plan</span>
+        <h2 class="section-title">Umrah <span>Package Tiers</span></h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="package-tiers">
+        <div class="tier-card economy reveal delay-1">
+          <div class="tier-header">
+            <span class="tier-badge">Economy</span>
+            <div class="tier-name">Economy</div>
+            <div class="tier-price"><sup>₹</sup>65,000<sub>/person</sub></div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-features">
+              <div class="tier-feature"><i class="fas fa-check"></i> 19–20 Days Package</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Air Ticket Ahmedabad to Ahmedabad</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Umrah Visa</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> 03 Times Meals Daily</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Welcome Kit with Traveling & Passport Bag</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Local Ziyarat Makkah & Madinah Sharif</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Tayef & Badar Ziyarat</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> AC Bus Transport Services</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Laundry Service</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> 5 Liter Zamzam Water</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Experienced Umrah Rehbar</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Total 04 Umrah from Our Tour</div>
+            </div>
+            <a class="btn-book" style="width:100%;padding:12px;font-size:.95rem;text-align:center"
+              href="contact.html">Book Now</a>
+          </div>
+        </div>
+
+        <div class="tier-card deluxe featured reveal delay-2">
+          <div class="tier-featured-tag">Popular</div>
+          <div class="tier-header">
+            <span class="tier-badge">Deluxe</span>
+            <div class="tier-name">Deluxe</div>
+            <div class="tier-price"><sup>₹</sup>1,10,000<sub>/person</sub></div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-features">
+              <div class="tier-feature"><i class="fas fa-check"></i> 19–20 Days Package</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Air Ticket Ahmedabad to Ahmedabad</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Umrah Visa</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> 03 Times Meals Daily</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Welcome Kit with Traveling & Passport Bag</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Local Ziyarat Makkah & Madinah Sharif</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Tayef & Badar Ziyarat</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> AC Bus Transport Services</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Laundry Service</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> 5 Liter Zamzam Water</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Experienced Umrah Rehbar</div>
+              <div class="tier-feature"><i class="fas fa-check"></i> Total 04 Umrah from Our Tour</div>
+            </div>
+            <a class="btn-book" style="width:100%;padding:12px;font-size:.95rem;text-align:center"
+              href="contact.html">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header center reveal">
+        <span class="section-label">Complete Facilities</span>
+        <h2 class="section-title">Package <span>Includes</span></h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="info-grid reveal">
+        <div class="info-card">
+          <h3>Travel & Visa</h3>
+          <ul>
+            <li><i class="fas fa-plane"></i> Air ticket Ahmedabad to Ahmedabad</li>
+            <li><i class="fas fa-passport"></i> Umrah visa processing</li>
+            <li><i class="fas fa-bus"></i> AC bus transport services</li>
+            <li><i class="fas fa-suitcase"></i> Welcome kit including traveling & passport bag</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>Meals & Services</h3>
+          <ul>
+            <li><i class="fas fa-utensils"></i> 03 times meals daily</li>
+            <li><i class="fas fa-shirt"></i> Laundry services</li>
+            <li><i class="fas fa-bottle-water"></i> 5 liter Zamzam water included</li>
+            <li><i class="fas fa-user-tie"></i> Experienced Umrah Rehbar</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>Ziyarat & Umrah</h3>
+          <ul>
+            <li><i class="fas fa-kaaba"></i> Local Ziyarat Makkah & Madinah Sharif</li>
+            <li><i class="fas fa-mosque"></i> Tayef & Badar Ziyarat</li>
+            <li><i class="fas fa-check-circle"></i> Total 04 Umrah from our tour</li>
+            <li><i class="fas fa-star"></i> Spiritual guidance throughout the journey</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--gray-light)">
+      <div class="section-header center reveal">
+        <span class="section-label">Important Information</span>
+        <h2 class="section-title">Limited <span>Seats Available</span></h2>
+        <div class="gold-divider"></div>
+        <p style="color:var(--text-mid);line-height:1.8;max-width:750px">
+          Book your seat early for this blessed Umrah journey. Terms & conditions apply.
+        </p>
+      </div>
+
+      <div class="contact-box reveal">
+        <h3>For More Information</h3>
+        <p>Contact Paradise World Travels official numbers for booking and package details.</p>
+
+        <div class="contact-list">
+          <div class="contact-item">
+            <strong>Office Number</strong>
+            <a href="tel:+918128786123">+91 81287 86123</a>
+          </div>
+          <div class="contact-item">
+            <strong>Mohammad Bhai</strong>
+            <a href="tel:+919067869230">+91 90678 69230</a>
+          </div>
+          <div class="contact-item">
+            <strong>Maulana Faizan Ashrafi</strong>
+            <small style="display:block;margin-bottom:4px;color:#ddd">Khalifa-e-Shaikhul Islam</small>
+            <a href="tel:+918469353585">+91 84693 53585</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" onclick="showPage('home')">
+          <img src="images/logo.png" alt="Logo" class="logo-img">
+        </div>
+        <p>Your trusted partner for world-class travel experiences, sacred pilgrimages, and unforgettable
+          adventures
+          since 2005.</p>
+        <div class="social-links">
+          <a class="social-link" href="https://www.facebook.com/paradiseworldtravels"><i
+              class="fab fa-facebook-f"></i></a>
+          <a class="social-link"
+            href="https://www.instagram.com/paradiseworldtravels?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+              class="fab fa-instagram"></i></a>
+
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Packages</a>
+          <a href="offers.html"><i class="fas fa-chevron-right"></i> Offers</a>
+          <a href="umrah.html"><i class="fas fa-chevron-right"></i> Umrah</a>
+          <a href="hajj.html"><i class="fas fa-chevron-right"></i> Hajj</a>
+          <a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Top Destinations</h4>
+        <div class="footer-links">
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Dubai, UAE</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Makkah, Saudi Arabia</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Paris, France</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Bali, Indonesia</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Maldives</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Singapore</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Turkey</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact">
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Shop No ff-5 Preside Complex,
+              Panpur Patiya, opp. Gramin Police Choki, Savagath, Savgadh, Himatnagar, Gujarat 383001, India</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 81287 86123<br>+91 84693 53585</span>
+          </div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>pwtravco@gmail.com</span>
+          </div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 7:00
+              PM<br>Sunday:
+              10:00 AM – 4:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span>Paradise Wide Package</span>. All Rights Reserved.</p>
+      <p>Designed with <span>♥</span> for travellers worldwide</p>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const scrollTopBtn = document.getElementById('scrollTop');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+        scrollTopBtn.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    function toggleMobile() {
+      mobileMenu.classList.toggle('open');
+    }
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    const revealItems = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+  </script>
+</body>
+
+</html>

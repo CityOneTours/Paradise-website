@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Paradise World Travels</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c69f4a;
+            --gold-light: #e2c47a;
+            --gold-dark: #9a7a30;
+            --blue: #00468a;
+            --blue-light: #1a5fa3;
+            --blue-dark: #002d5c;
+            --black: #111111;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray: #e0e0e0;
+            --text-dark: #222222;
+            --text-mid: #555555;
+            --shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            --shadow-gold: 0 8px 30px rgba(198, 159, 74, 0.3);
+            --radius: 12px;
+            --transition: 0.35s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            font-family: inherit
+        }
+
+        /* NAVBAR */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--black);
+            padding: 0 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+            transition: var(--transition)
+        }
+
+        #navbar.scrolled {
+            background: rgba(0, 0, 0, .97);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .6)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer
+        }
+
+        .logo-img {
+            width: auto;
+            height: 60px;
+            object-fit: contain
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nav-links a,
+        .nav-links button {
+            color: #ddd;
+            font-size: .88rem;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: var(--transition);
+            letter-spacing: .3px;
+            background: none
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+            background: rgba(198, 159, 74, .12)
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+            color: var(--black) !important;
+            font-weight: 700 !important;
+            padding: 9px 20px !important;
+            border-radius: 25px !important;
+            box-shadow: 0 4px 15px rgba(198, 159, 74, .4)
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(198, 159, 74, .5);
+            color: var(--black) !important
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: var(--transition)
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--black);
+            z-index: 999;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            border-top: 1px solid rgba(255, 255, 255, .08)
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .mobile-menu a {
+            color: #ccc;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: block;
+            transition: var(--transition)
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--gold);
+            background: rgba(198, 159, 74, .1)
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            position: relative;
+            height: 380px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 70px;
+            overflow: hidden
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, .6), rgba(0, 70, 138, .5))
+        }
+
+        .about-hero {
+            background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80')
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px
+        }
+
+        .page-hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 12px
+        }
+
+        .page-hero-content h1 span {
+            color: var(--gold)
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .7)
+        }
+
+        .breadcrumb a {
+            color: var(--gold-light);
+            transition: var(--transition)
+        }
+
+        .breadcrumb a:hover {
+            color: var(--gold)
+        }
+
+        .breadcrumb i {
+            font-size: .65rem
+        }
+
+        /* SECTION COMMON */
+        .section-label {
+            display: inline-block;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-bottom: 16px
+        }
+
+        .section-title span {
+            color: var(--blue)
+        }
+
+        .section-sub {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            max-width: 580px;
+            line-height: 1.7
+        }
+
+        .section-header {
+            margin-bottom: 60px
+        }
+
+        .section-header.center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            border-radius: 2px;
+            margin: 16px 0
+        }
+
+        .center .gold-divider {
+            margin: 16px auto
+        }
+
+        /* ABOUT STORY SECTION */
+        .about-story {
+            padding: 90px 6%;
+            background-color: #faebd796
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center
+        }
+
+        .about-img-block {
+            position: relative
+        }
+
+        .about-main-img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow)
+        }
+
+        .about-badge-float {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: var(--radius);
+            padding: 22px 26px;
+            text-align: center;
+            box-shadow: var(--shadow-gold)
+        }
+
+        .about-badge-float .num {
+            /* font-family: 'Playfair Display', serif; */
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--black);
+            line-height: 1
+        }
+
+        .about-badge-float .lbl {
+            font-size: .75rem;
+            color: rgba(0, 0, 0, .7);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase
+        }
+
+        .about-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 24px 0
+        }
+
+        .about-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px
+        }
+
+        .about-list-item i {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-top: 3px;
+            min-width: 18px
+        }
+
+        .about-list-item span {
+            font-size: .92rem;
+            color: var(--text-mid);
+            line-height: 1.6
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px 36px;
+            border-radius: 50px;
+            box-shadow: 0 6px 25px rgba(198, 159, 74, .45);
+            transition: var(--transition);
+            letter-spacing: .3px;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(198, 159, 74, .55)
+        }
+
+        /* MISSION / VISION / PROMISE CARDS */
+        .mvp-section {
+            padding: 90px 6%;
+            background: #fff
+        }
+
+        .mvp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 50px
+        }
+
+        .mvp-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 38px 30px;
+            border: 1px solid var(--gray);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center
+        }
+
+        .mvp-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition)
+        }
+
+        .mvp-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow)
+        }
+
+        .mvp-card:hover::after {
+            transform: scaleX(1)
+        }
+
+        .mvp-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 22px;
+            background: linear-gradient(135deg, rgba(198, 159, 74, .15), rgba(0, 70, 138, .15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            color: var(--gold);
+            transition: var(--transition)
+        }
+
+        .mvp-card:hover .mvp-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black)
+        }
+
+        .mvp-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-dark)
+        }
+
+        .mvp-card p {
+            font-size: .9rem;
+            color: var(--text-mid);
+            line-height: 1.7
+        }
+
+        /* WHAT WE OFFER */
+        .services-section {
+            padding: 90px 6%;
+            background: #faebd796
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+            margin-top: 50px
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            border: 1px solid var(--gray);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, .05);
+            transition: var(--transition)
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold)
+        }
+
+        .service-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(198, 159, 74, .18), rgba(0, 70, 138, .12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--gold);
+            transition: var(--transition)
+        }
+
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black)
+        }
+
+        .service-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-dark)
+        }
+
+        .service-info p {
+            font-size: .84rem;
+            color: var(--text-mid);
+            line-height: 1.55
+        }
+
+        /* WHY CHOOSE US */
+        .why-section {
+            padding: 90px 6%;
+            background: #fff
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin-top: 50px
+        }
+
+        .why-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px 22px;
+            text-align: center;
+            border: 1px solid var(--gray);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition)
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: .9rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black)
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow)
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1)
+        }
+
+        .why-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            margin: 0 auto 18px;
+            background: linear-gradient(135deg, rgba(198, 159, 74, .15), rgba(0, 70, 138, .15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--gold);
+            transition: var(--transition)
+        }
+
+        .why-card:hover .why-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black)
+        }
+
+        .why-card h3 {
+            font-size: .98rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark)
+        }
+
+        .why-card p {
+            font-size: .85rem;
+            color: var(--text-mid);
+            line-height: 1.6
+        }
+
+        /* STATS */
+        .stats-section {
+            background: linear-gradient(135deg, var(--black) 0%, var(--blue-dark) 100%);
+            padding: 70px 6%
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center
+        }
+
+        .stat-item {
+            padding: 30px 20px;
+            border-right: 1px solid rgba(255, 255, 255, .1)
+        }
+
+        .stat-item:last-child {
+            border-right: none
+        }
+
+        .stat-num {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1
+        }
+
+        .stat-label {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .7);
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase
+        }
+
+        /* PROMISE STRIP */
+        .promise-strip {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            padding: 60px 6%;
+            text-align: center
+        }
+
+        .promise-strip h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 14px
+        }
+
+        .promise-strip p {
+            color: rgba(0, 0, 0, .75);
+            font-size: 1rem;
+            max-width: 640px;
+            margin: 0 auto 30px;
+            line-height: 1.7
+        }
+
+        .promise-strip .btn-dark {
+            background: var(--black);
+            color: var(--white);
+            font-weight: 700;
+            font-size: .95rem;
+            padding: 13px 32px;
+            border-radius: 50px;
+            transition: var(--transition);
+            display: inline-block
+        }
+
+        .promise-strip .btn-dark:hover {
+            background: var(--blue);
+            transform: translateY(-2px)
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--black);
+            color: rgba(255, 255, 255, .75);
+            padding: 70px 6% 30px
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px
+        }
+
+        .footer-brand p {
+            font-size: .88rem;
+            line-height: 1.7;
+            color: #aaa;
+            margin-top: 16px;
+            max-width: 280px
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: .9rem;
+            transition: var(--transition)
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black)
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-weight: 700;
+            font-size: .95rem;
+            margin-bottom: 20px;
+            letter-spacing: .5px
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .footer-links a {
+            color: #aaa;
+            font-size: .88rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            padding-left: 4px
+        }
+
+        .footer-links a i {
+            font-size: .7rem;
+            color: var(--gold)
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: .85rem;
+            color: #aaa
+        }
+
+        .footer-contact-item i {
+            color: var(--gold);
+            margin-top: 3px;
+            min-width: 16px
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .footer-bottom p {
+            font-size: .82rem;
+            color: #666
+        }
+
+        .footer-bottom span {
+            color: var(--gold)
+        }
+
+        /* SCROLL TOP */
+        #scrollTop {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            cursor: pointer
+        }
+
+        #scrollTop.visible {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        #scrollTop:hover {
+            transform: translateY(-3px)
+        }
+
+        /* ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0)
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0)
+        }
+
+        .delay-1 {
+            transition-delay: .1s !important
+        }
+
+        .delay-2 {
+            transition-delay: .2s !important
+        }
+
+        .delay-3 {
+            transition-delay: .3s !important
+        }
+
+        .delay-4 {
+            transition-delay: .4s !important
+        }
+
+        .delay-5 {
+            transition-delay: .5s !important
+        }
+
+        .delay-6 {
+            transition-delay: .6s !important
+        }
+
+        .delay-7 {
+            transition-delay: .7s !important
+        }
+
+        .delay-8 {
+            transition-delay: .8s !important
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1024px) {
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, .1)
+            }
+
+            .stat-item:nth-child(odd) {
+                border-right: 1px solid rgba(255, 255, 255, .1)
+            }
+        }
+
+        @media(max-width:768px) {
+            .nav-links {
+                display: none
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .about-story,
+            .mvp-section,
+            .services-section,
+            .why-section {
+                padding: 60px 5%
+            }
+
+            .about-content {
+                grid-template-columns: 1fr
+            }
+
+            .about-badge-float {
+                position: static;
+                margin-top: 20px
+            }
+
+            .mvp-grid {
+                grid-template-columns: 1fr
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center
+            }
+        }
+
+        @media(max-width:480px) {
+            .stats-grid {
+                grid-template-columns: 1fr
+            }
+
+            .stat-item {
+                border-right: none !important
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <a class="nav-logo" href="index.html">
+            <img src="images/logo.png" alt="Logo" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="umrah.html">Umrah</a>
+            <a href="hajj.html">Hajj</a>
+            <a href="packages.html">Packages</a>
+            <a href="offers.html">Offers</a>
+            <a href="visa.html">Visa & Flights</a>
+
+            <a href="about.html" class="active">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a class="nav-cta" href="contact.html">Book Now</a>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="packages.html">Packages</a>
+        <a href="offers.html">Offers</a>
+        <a href="umrah.html">Umrah</a>
+        <a href="hajj.html">Hajj</a>
+                    <a href="visa.html">Visa & Flights</a>
+
+        <a href="about.html" class="active">About Us</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i
+            class="fas fa-chevron-up"></i></button>
+
+    <main>
+
+        <!-- PAGE HERO -->
+        <div class="page-hero about-hero">
+            <div class="page-hero-content">
+                <h1>About <span>Us</span></h1>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>About Us</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUR STORY -->
+        <section class="about-story">
+            <div class="about-content">
+                <div class="about-img-block reveal-left">
+                    <img class="about-main-img"
+                        src="https://www.un.org/sites/un2.un.org/files/styles/banner-image-style-27-10/public/events_tourism_day.jpg"
+                        alt="About Paradise World Travels">
+                    <div class="about-badge-float">
+                        <div class="num">15K+</div>
+                        <div class="lbl">Happy Travellers</div>
+                    </div>
+                </div>
+                <div class="reveal-right">
+                    <span class="section-label">Our Story</span>
+                    <h2 class="section-title">Your Trusted <span>Travel Partner</span></h2>
+                    <div class="gold-divider"></div>
+                    <p style="color:var(--text-mid);line-height:1.85;margin-bottom:16px">
+                        At <strong>Paradise World Travels</strong>, we believe that travel is more than reaching a
+                        destination — it's about creating unforgettable experiences. Based in Gujarat, India, we are
+                        committed to providing reliable, affordable, and personalized travel solutions for individuals,
+                        families, corporate clients, and groups.
+                    </p>
+                    <p style="color:var(--text-mid);line-height:1.85;margin-bottom:20px">
+                        With years of experience in the travel industry, our team specializes in designing seamless
+                        travel experiences — whether you're planning a spiritual pilgrimage, a family holiday, a
+                        honeymoon, an international vacation, or a business trip. Every journey is carefully planned to
+                        ensure comfort, convenience, and complete peace of mind.
+                    </p>
+                    <p style="color:var(--text-mid);line-height:1.85;margin-bottom:24px">
+                        From your first enquiry until you return home, we are dedicated to delivering exceptional
+                        service, transparent pricing, and professional support at every step.
+                    </p>
+                    <div class="about-list">
+                        <div class="about-list-item"><i class="fas fa-trophy"></i><span>Experienced travel professionals
+                                with years of industry expertise</span></div>
+                        <div class="about-list-item"><i class="fas fa-mosque"></i><span>Trusted Umrah &amp; Hajj
+                                operator with government-approved packages</span></div>
+                        <div class="about-list-item"><i class="fas fa-globe"></i><span>Serving travellers across India
+                                with nationwide reach</span></div>
+                        <div class="about-list-item"><i class="fas fa-headset"></i><span>24/7 customer support
+                                throughout your journey</span></div>
+                    </div>
+                    <a class="btn-primary" href="contact.html" style="margin-top:28px">Get In Touch &nbsp;<i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item reveal delay-1">
+                    <div class="stat-num">15K+</div>
+                    <div class="stat-label">Happy Travellers</div>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <div class="stat-num">120+</div>
+                    <div class="stat-label">Destinations</div>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <div class="stat-num">98%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="stat-item reveal delay-4">
+                    <div class="stat-num">24/7</div>
+                    <div class="stat-label">Customer Support</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MISSION / VISION / PROMISE -->
+        <section class="mvp-section">
+            <div class="section-header center reveal">
+                <span class="section-label">What Drives Us</span>
+                <h2 class="section-title">Our <span>Mission, Vision & Promise</span></h2>
+                <div class="gold-divider"></div>
+            </div>
+            <div class="mvp-grid">
+                <div class="mvp-card reveal delay-1">
+                    <div class="mvp-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
+                    <p>To make every journey simple, affordable, and memorable by providing exceptional travel services
+                        with honesty, professionalism, and personalized care — tailored to every traveller's needs.</p>
+                </div>
+                <div class="mvp-card reveal delay-2">
+                    <div class="mvp-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Our Vision</h3>
+                    <p>To become one of India's most trusted travel companies by delivering world-class travel
+                        experiences, building lasting relationships with our customers, and continuously exceeding
+                        expectations.</p>
+                </div>
+                <div class="mvp-card reveal delay-3">
+                    <div class="mvp-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Our Promise</h3>
+                    <p>At Paradise World Travels, every traveller is valued. Whether it's your first international
+                        holiday or a once-in-a-lifetime pilgrimage, we handle every detail with care so you travel with
+                        confidence.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT WE OFFER -->
+        <section class="services-section">
+            <div class="section-header center reveal">
+                <span class="section-label">What We Offer</span>
+                <h2 class="section-title">Comprehensive <span>Travel Services</span></h2>
+                <div class="gold-divider"></div>
+                <p class="section-sub" style="text-align:center;margin-top:10px">Everything you need for a seamless
+                    journey — under one roof.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal delay-1">
+                    <div class="service-icon"><i class="fas fa-plane"></i></div>
+                    <div class="service-info">
+                        <h4>Holiday Packages</h4>
+                        <p>Domestic &amp; international packages designed for every type of traveller and budget.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-2">
+                    <div class="service-icon"><i class="fas fa-kaaba"></i></div>
+                    <div class="service-info">
+                        <h4>Umrah &amp; Hajj</h4>
+                        <p>Carefully curated pilgrimage packages with guided spiritual support throughout.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-3">
+                    <div class="service-icon"><i class="fas fa-passport"></i></div>
+                    <div class="service-info">
+                        <h4>Visa Assistance</h4>
+                        <p>Tourist &amp; visit visa guidance with quick and reliable documentation support.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-4">
+                    <div class="service-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <div class="service-info">
+                        <h4>Flight Bookings</h4>
+                        <p>Competitive flight ticket bookings across all major airlines worldwide.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-5">
+                    <div class="service-icon"><i class="fas fa-hotel"></i></div>
+                    <div class="service-info">
+                        <h4>Hotel Reservations</h4>
+                        <p>Worldwide hotel bookings from budget stays to luxury five-star properties.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-6">
+                    <div class="service-icon"><i class="fas fa-car"></i></div>
+                    <div class="service-info">
+                        <h4>Airport Transfers</h4>
+                        <p>Reliable airport pickup &amp; drop and local transportation arrangements.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-7">
+                    <div class="service-icon"><i class="fas fa-users"></i></div>
+                    <div class="service-info">
+                        <h4>Group &amp; Custom Tours</h4>
+                        <p>Tailored group packages and fully customized itineraries for any occasion.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-8">
+                    <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="service-info">
+                        <h4>Corporate Travel</h4>
+                        <p>End-to-end corporate travel solutions with dedicated account management.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-1">
+                    <div class="service-icon"><i class="fas fa-ship"></i></div>
+                    <div class="service-info">
+                        <h4>Cruise &amp; Luxury Travel</h4>
+                        <p>Premium cruise packages and luxury travel experiences for the discerning traveller.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-2">
+                    <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="service-info">
+                        <h4>Travel Insurance</h4>
+                        <p>Comprehensive travel insurance coverage for peace of mind on every trip.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY CHOOSE US -->
+        <section class="why-section">
+            <div class="section-header center reveal">
+                <span class="section-label">Why Choose Us</span>
+                <h2 class="section-title">Reasons to <span>Travel With Us</span></h2>
+                <div class="gold-divider"></div>
+            </div>
+            <div class="why-grid">
+                <div class="why-card reveal delay-1">
+                    <div class="why-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>Expert Professionals</h3>
+                    <p>Experienced travel experts who craft journeys with precision and personal care.</p>
+                </div>
+                <div class="why-card reveal delay-2">
+                    <div class="why-icon"><i class="fas fa-drafting-compass"></i></div>
+                    <h3>Personalized Planning</h3>
+                    <p>Every itinerary is custom-built to match your preferences and travel goals.</p>
+                </div>
+                <div class="why-card reveal delay-3">
+                    <div class="why-icon"><i class="fas fa-tags"></i></div>
+                    <h3>Transparent Pricing</h3>
+                    <p>Competitive rates with no hidden charges — what you see is what you pay.</p>
+                </div>
+                <div class="why-card reveal delay-4">
+                    <div class="why-icon"><i class="fas fa-globe-asia"></i></div>
+                    <h3>Worldwide Partners</h3>
+                    <p>Trusted network of global hotel, airline, and service partners worldwide.</p>
+                </div>
+                <div class="why-card reveal delay-1">
+                    <div class="why-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Quick Visa Support</h3>
+                    <p>Fast and reliable visa and documentation assistance for all destinations.</p>
+                </div>
+                <div class="why-card reveal delay-2">
+                    <div class="why-icon"><i class="fas fa-headset"></i></div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer support to assist you at any point during your journey.</p>
+                </div>
+                <div class="why-card reveal delay-3">
+                    <div class="why-icon"><i class="fas fa-wallet"></i></div>
+                    <h3>Budget-Friendly</h3>
+                    <p>Customized itineraries that deliver great experiences without breaking the bank.</p>
+                </div>
+                <div class="why-card reveal delay-4">
+                    <div class="why-icon"><i class="fas fa-star"></i></div>
+                    <h3>Quality Commitment</h3>
+                    <p>Unwavering commitment to quality, honesty, and complete customer satisfaction.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROMISE STRIP / CTA -->
+        <div class="promise-strip">
+            <h2>Travel Smart. Travel Comfortably.</h2>
+            <p>Whether you're embarking on your first international holiday or planning a once-in-a-lifetime pilgrimage,
+                Paradise World Travels ensures every detail is handled with care — so you travel with complete
+                confidence.</p>
+            <a class="btn-dark" href="contact.html">Plan Your Journey &nbsp;<i class="fas fa-arrow-right"></i></a>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo" onclick="showPage('home')">
+                    <img src="images/logo.png" alt="Logo" class="logo-img">
+                </div>
+                <p>Your trusted partner for world-class travel experiences, sacred pilgrimages, and unforgettable
+                    adventures
+                    since 2005.</p>
+                <div class="social-links">
+                    <a class="social-link" href="https://www.facebook.com/paradiseworldtravels"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="social-link"
+                        href="https://www.instagram.com/paradiseworldtravels?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+                            class="fab fa-instagram"></i></a>
+
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Packages</a>
+                    <a href="offers.html"><i class="fas fa-chevron-right"></i> Offers</a>
+                    <a href="umrah.html"><i class="fas fa-chevron-right"></i> Umrah</a>
+                    <a href="hajj.html"><i class="fas fa-chevron-right"></i> Hajj</a>
+                    <a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Top Destinations</h4>
+                <div class="footer-links">
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Dubai, UAE</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Makkah, Saudi Arabia</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Paris, France</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Bali, Indonesia</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Maldives</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Singapore</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Turkey</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <div class="footer-contact">
+                    <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Shop No ff-5 Preside
+                            Complex, Panpur Patiya, opp. Gramin Police Choki, Savagath, Savgadh, Himatnagar, Gujarat
+                            383001, India</span></div>
+                    <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 81287 86123<br>+91 84693
+                            53585</span>
+                    </div>
+                    <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>pwtravco@gmail.com</span>
+                    </div>
+                    <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 7:00
+                            PM<br>Sunday:
+                            10:00 AM – 4:00 PM</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 <span>Paradise Wide Package</span>. All Rights Reserved.</p>
+            <p>Designed with <span>♥</span> for travellers worldwide</p>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+                scrollTopBtn.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        function toggleMobile() {
+            mobileMenu.classList.toggle('open');
+        }
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        const revealItems = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+
+        revealItems.forEach(item => revealObserver.observe(item));
+    </script>
+</body>
+
+</html>

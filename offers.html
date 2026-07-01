@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Special Offers | Paradise World Travels</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #c69f4a;
+            --gold-light: #e2c47a;
+            --gold-dark: #9a7a30;
+            --blue: #00468a;
+            --blue-dark: #002d5c;
+            --black: #111;
+            --white: #fff;
+            --gray-light: #f5f5f5;
+            --gray: #e0e0e0;
+            --text-dark: #222;
+            --text-mid: #555;
+            --shadow: 0 8px 40px rgba(0, 0, 0, .15);
+            --shadow-gold: 0 8px 30px rgba(198, 159, 74, .3);
+            --radius: 12px;
+            --transition: .35s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: #faebd796;
+            overflow-x: hidden
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: .9rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black)
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit
+        }
+
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--black);
+            padding: 0 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+            transition: var(--transition)
+        }
+
+        #navbar.scrolled {
+            background: rgba(0, 0, 0, .97);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .6)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer
+        }
+
+        .logo-img {
+            width: auto;
+            height: 60px;
+            object-fit: contain
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nav-links a {
+            color: #ddd;
+            font-size: .88rem;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: var(--transition);
+            letter-spacing: .3px
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+            background: rgba(198, 159, 74, .12)
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+            color: var(--black) !important;
+            font-weight: 700 !important;
+            padding: 9px 20px !important;
+            border-radius: 25px !important;
+            box-shadow: 0 4px 15px rgba(198, 159, 74, .4)
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--black);
+            z-index: 999;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            border-top: 1px solid rgba(255, 255, 255, .08)
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .mobile-menu a {
+            color: #ccc;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: block;
+            width: 100%;
+            text-align: left
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--gold);
+            background: rgba(198, 159, 74, .1)
+        }
+
+        .page-hero {
+            position: relative;
+            height: 230px;
+            background: url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1600&q=80') center/cover;
+            margin-top: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden
+        }
+
+        .page-hero:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, .65), rgba(0, 70, 138, .55))
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px
+        }
+
+        .page-hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px
+        }
+
+        .page-hero-content h1 span {
+            color: var(--gold)
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .75)
+        }
+
+        .breadcrumb a {
+            color: var(--gold-light)
+        }
+
+        .breadcrumb i {
+            font-size: .65rem
+        }
+
+        section {
+            padding: 55px 6%
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 38px
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--text-dark)
+        }
+
+        .section-title span {
+            color: var(--blue)
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            border-radius: 2px;
+            margin: 16px auto
+        }
+
+        .section-sub {
+            max-width: 720px;
+            margin: 0 auto;
+            color: var(--text-mid);
+            line-height: 1.7
+        }
+
+        .offer-banner {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: var(--radius);
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: var(--shadow-gold)
+        }
+
+        .offer-banner h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 6px
+        }
+
+        .offer-banner p {
+            color: rgba(0, 0, 0, .75);
+            font-size: .95rem
+        }
+
+        .offer-banner .btn-book {
+            background: var(--black);
+            color: #fff;
+            padding: 12px 28px;
+            font-size: .95rem
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-top: 20px
+        }
+
+        .offer-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%
+        }
+
+        .offer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold)
+        }
+
+        .offer-img {
+            position: relative;
+            height: 210px;
+            overflow: hidden
+        }
+
+        .offer-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s ease
+        }
+
+        .offer-card:hover .offer-img img {
+            transform: scale(1.08)
+        }
+
+        .offer-discount {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: linear-gradient(135deg, #c0392b, #922b21);
+            color: #fff;
+            font-size: .82rem;
+            font-weight: 700;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.1;
+            text-align: center
+        }
+
+        .offer-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1
+        }
+
+        .offer-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark)
+        }
+
+        .offer-meta {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 12px;
+            flex-wrap: wrap
+        }
+
+        .offer-meta span {
+            font-size: .8rem;
+            color: var(--text-mid);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .offer-meta i {
+            color: var(--gold)
+        }
+
+        .offer-desc {
+            font-size: .87rem;
+            color: var(--text-mid);
+            line-height: 1.65;
+            margin-bottom: 18px;
+            flex: 1
+        }
+
+        .offer-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--gray);
+            padding-top: 16px;
+            gap: 12px
+        }
+
+        .price-block {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .price-old {
+            font-size: .88rem;
+            color: #aaa;
+            text-decoration: line-through
+        }
+
+        .price-new {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--blue)
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-size: .82rem;
+            font-weight: 700;
+            padding: 9px 18px;
+            border-radius: 25px;
+            transition: var(--transition);
+            letter-spacing: .3px;
+            white-space: nowrap
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold)
+        }
+
+        footer {
+            background: var(--black);
+            color: rgba(255, 255, 255, .75);
+            padding: 70px 6% 30px
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px
+        }
+
+        .footer-brand p {
+            font-size: .88rem;
+            line-height: 1.7;
+            color: #aaa;
+            margin-top: 16px;
+            max-width: 280px
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            font-weight: 700
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-weight: 700;
+            font-size: .95rem;
+            margin-bottom: 20px
+        }
+
+        .footer-links,
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .footer-links a,
+        .footer-contact-item {
+            color: #aaa;
+            font-size: .88rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            padding-left: 4px
+        }
+
+        .footer-links i,
+        .footer-contact-item i {
+            color: var(--gold);
+            margin-top: 3px
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .footer-bottom p {
+            font-size: .82rem;
+            color: #666
+        }
+
+        .footer-bottom span {
+            color: var(--gold)
+        }
+
+        #scrollTop {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition)
+        }
+
+        #scrollTop.visible {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        @media(max-width:1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px
+            }
+        }
+
+        @media(max-width:768px) {
+            .nav-links {
+                display: none
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .page-hero {
+                height: 180px
+            }
+
+            section {
+                padding: 40px 5%
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center
+            }
+
+            .offer-footer {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .btn-book {
+                width: 100%;
+                text-align: center
+            }
+
+            .offer-banner {
+                align-items: flex-start
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navbar">
+        <a class="nav-logo" href="index.html"><img src="images/logo.png" alt="Paradise World Travels Logo"
+                class="logo-img"></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="umrah.html">Umrah</a>
+            <a href="hajj.html">Hajj</a>
+            <a href="packages.html">Packages</a>
+            <a href="offers.html" class="active">Offers</a>
+            <a href="visa.html">Visa & Flights</a>
+
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a class="nav-cta" href="contact.html">Book Now</a>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="umrah.html">Umrah</a>
+        <a href="hajj.html">Hajj</a>
+        <a href="packages.html">Packages</a>
+        <a href="offers.html" class="active">Offers</a>
+        <a href="visa.html">Visa & Flights</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i
+            class="fas fa-chevron-up"></i></button>
+
+    <main>
+        <div class="page-hero">
+            <div class="page-hero-content">
+                <h1>Special <span>Offers</span></h1>
+                <div class="breadcrumb"><a href="index.html">Home</a><i
+                        class="fas fa-chevron-right"></i><span>Offers</span></div>
+            </div>
+        </div>
+
+        <section>
+            <div class="offer-banner reveal">
+                <div>
+                    <h3>Exclusive Holiday Deals</h3>
+                    <p>Choose your favourite destination and click View Details to explore the full package.</p>
+                </div>
+                <a href="packages.html" class="btn-book">View All Packages</a>
+            </div>
+
+            <div class="section-header reveal">
+                <span class="section-label">Limited Period</span>
+                <h2 class="section-title">Featured <span>Travel Offers</span></h2>
+                <div class="gold-divider"></div>
+                <p class="section-sub">Best-selling holiday packages with special prices. Each card opens its dedicated
+                    package page.</p>
+            </div>
+
+            <div class="offers-grid" id="offersGrid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo" onclick="showPage('home')">
+                    <img src="images/logo.png" alt="Logo" class="logo-img">
+                </div>
+                <p>Your trusted partner for world-class travel experiences, sacred pilgrimages, and unforgettable
+                    adventures
+                    since 2005.</p>
+                <div class="social-links">
+                    <a class="social-link" href="https://www.facebook.com/paradiseworldtravels"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="social-link"
+                        href="https://www.instagram.com/paradiseworldtravels?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+                            class="fab fa-instagram"></i></a>
+
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Packages</a>
+                    <a href="offers.html"><i class="fas fa-chevron-right"></i> Offers</a>
+                    <a href="umrah.html"><i class="fas fa-chevron-right"></i> Umrah</a>
+                    <a href="hajj.html"><i class="fas fa-chevron-right"></i> Hajj</a>
+                    <a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Top Destinations</h4>
+                <div class="footer-links">
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Dubai, UAE</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Makkah, Saudi Arabia</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Paris, France</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Bali, Indonesia</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Maldives</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Singapore</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Turkey</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <div class="footer-contact">
+                    <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Shop No ff-5 Preside
+                            Complex, Panpur Patiya, opp. Gramin Police Choki, Savagath, Savgadh, Himatnagar, Gujarat
+                            383001, India</span></div>
+                    <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 81287 86123<br>+91 84693
+                            53585</span>
+                    </div>
+                    <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>pwtravco@gmail.com</span>
+                    </div>
+                    <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 7:00
+                            PM<br>Sunday:
+                            10:00 AM – 4:00 PM</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 <span>Paradise Wide Package</span>. All Rights Reserved.</p>
+            <p>Designed with <span>♥</span> for travellers worldwide</p>
+        </div>
+    </footer>
+
+    <script>
+        const offers = [
+            { title: 'Dubai Special Package', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80', duration: '3 Nights / 4 Days', location: 'Dubai, UAE', desc: 'Luxury Dubai holiday with hotel stay, transfers and sightseeing.', oldPrice: '₹29,999', newPrice: '₹25,699', discount: '30%', link: '../packages/dubai-summer-offer.html' },
+            { title: 'Goa Holiday Package', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&q=80', duration: '3 Nights / 4 Days', location: 'Goa, India', desc: 'Experience the best of Goa with beaches, nightlife and comfortable hotel stay.', oldPrice: '₹15,999', newPrice: '₹12,999', discount: '25%', link: '../packages/goa-package.html' },
+            { title: 'Maldives Honeymoon', image: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=1200&q=80', duration: '4 Nights / 5 Days', location: 'Maldives', desc: 'Romantic beach escape with resort stay, breakfast and island leisure.', oldPrice: '₹2,45,000', newPrice: '₹2,28,130', discount: '20%', link: '../packages/maldives-all-inclusive-package.html' },
+            { title: 'Turkey Holiday Package', image: 'https://images.unsplash.com/photo-1527838832700-5059252407fa?w=1200&q=80', duration: '5 Nights / 6 Days', location: 'Turkey', desc: 'Explore Istanbul and Cappadocia with guided tours and premium hotels.', oldPrice: '₹1,33,774', newPrice: '₹1,03,774', discount: '25%', link: '../packages/turkey-cappadocia-antalya-tour-package.html' },
+            //   {title:'Georgia Explorer',image:'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&q=80',duration:'5 Nights / 6 Days',location:'Georgia',desc:'Discover Tbilisi, Gudauri and Kazbegi with private sightseeing.',oldPrice:'₹59,999',newPrice:'₹42,999',discount:'28%',link:'georgia-package.html'},
+            //   {title:'Thailand Escape',image:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1200&q=80',duration:'5 Nights / 6 Days',location:'Thailand',desc:'Bangkok and Pattaya package with island tour and hotel stay.',oldPrice:'₹49,999',newPrice:'₹36,999',discount:'26%',link:'thailand-package.html'},
+            //   {title:'Azerbaijan Baku Deal',image:'https://images.unsplash.com/photo-1596306499398-8d88944a5ec4?w=1200&q=80',duration:'4 Nights / 5 Days',location:'Baku, Azerbaijan',desc:'Explore Baku city, Gobustan and Absheron with hotel and transfers.',oldPrice:'₹62,999',newPrice:'₹45,999',discount:'27%',link:'azerbaijan-package.html'},
+            //   {title:'Kashmir Paradise Tour',image:'https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=1200&q=80',duration:'5 Nights / 6 Days',location:'Kashmir, India',desc:'Srinagar, Gulmarg and Pahalgam with beautiful valley sightseeing.',oldPrice:'₹35,999',newPrice:'₹27,999',discount:'22%',link:'kashmir-package.html'}
+        ];
+
+        const offersGrid = document.getElementById('offersGrid');
+
+        function renderOffers() {
+            offersGrid.innerHTML = '';
+            offers.forEach((offer) => {
+                offersGrid.innerHTML += `
+          <div class="offer-card reveal" onclick="window.location.href='${offer.link}'">
+            <div class="offer-img">
+              <img src="${offer.image}" alt="${offer.title}">
+              <div class="offer-discount">${offer.discount}<br>OFF</div>
+            </div>
+            <div class="offer-body">
+              <h3>${offer.title}</h3>
+              <div class="offer-meta">
+                <span><i class="fas fa-clock"></i>${offer.duration}</span>
+                <span><i class="fas fa-location-dot"></i>${offer.location}</span>
+              </div>
+              <p class="offer-desc">${offer.desc}</p>
+              <div class="offer-footer">
+                <div class="price-block">
+                  <span class="price-old">${offer.oldPrice}</span>
+                  <span class="price-new">${offer.newPrice}</span>
+                </div>
+                <a href="${offer.link}" class="btn-book" onclick="event.stopPropagation();">View Details <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>`;
+            });
+            observeReveal();
+        }
+
+        function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open') }
+
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) { navbar.classList.add('scrolled'); scrollTopBtn.classList.add('visible') }
+            else { navbar.classList.remove('scrolled'); scrollTopBtn.classList.remove('visible') }
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => link.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+
+        function observeReveal() {
+            const revealItems = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible') }) }, { threshold: .12 });
+            revealItems.forEach(item => observer.observe(item));
+        }
+
+        renderOffers();
+    </script>
+</body>
+
+</html>

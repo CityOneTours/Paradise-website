@@ -1,0 +1,3295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa & Flight Services — Paradise World Travels</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ============================================================
+           VARIABLES & RESET — matches main site
+        ============================================================ */
+        :root {
+            --gold: #c69f4a;
+            --gold-light: #e2c47a;
+            --gold-dark: #9a7a30;
+            --blue: #00468a;
+            --blue-light: #1a5fa3;
+            --blue-dark: #002d5c;
+            --black: #111111;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray: #e0e0e0;
+            --text-dark: #222222;
+            --text-mid: #555555;
+            --shadow: 0 8px 40px rgba(0, 0, 0, .15);
+            --shadow-gold: 0 8px 30px rgba(198, 159, 74, .3);
+            --radius: 12px;
+            --transition: 0.35s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        /* ============================================================
+           NAVBAR
+        ============================================================ */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--black);
+            padding: 0 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+            transition: var(--transition);
+        }
+
+        #navbar.scrolled {
+            background: rgba(0, 0, 0, .97);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .6);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            width: auto;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .nav-logo .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .nav-logo .logo-text span:first-child {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: .5px;
+        }
+
+        .nav-logo .logo-text span:last-child {
+            font-size: .68rem;
+            color: #aaa;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a,
+        .nav-links button {
+            color: #ddd;
+            font-size: .88rem;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: var(--transition);
+            letter-spacing: .3px;
+            background: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links button:hover,
+        .nav-links a.active,
+        .nav-links button.active {
+            color: var(--gold);
+            background: rgba(198, 159, 74, .12);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+            color: var(--black) !important;
+            font-weight: 700 !important;
+            padding: 9px 20px !important;
+            border-radius: 25px !important;
+            box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(198, 159, 74, .5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--black);
+            z-index: 999;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            border-top: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu a,
+        .mobile-menu button {
+            color: #ccc;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: block;
+            width: 100%;
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu button:hover {
+            color: var(--gold);
+            background: rgba(198, 159, 74, .1);
+        }
+
+        /* ============================================================
+           PAGE HERO
+        ============================================================ */
+        .page-hero {
+            position: relative;
+            height: 420px;
+            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 70px;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, .65) 0%, rgba(0, 70, 138, .55) 100%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .page-hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 14px;
+        }
+
+        .page-hero-content h1 span {
+            color: var(--gold);
+        }
+
+        .page-hero-content p {
+            color: rgba(255, 255, 255, .82);
+            font-size: 1.05rem;
+            max-width: 560px;
+            line-height: 1.7;
+            margin: 0 auto 20px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .7);
+        }
+
+        .breadcrumb a {
+            color: var(--gold-light);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--gold);
+        }
+
+        .breadcrumb i {
+            font-size: .65rem;
+        }
+
+        /* ============================================================
+           SECTIONS COMMON
+        ============================================================ */
+        section {
+            padding: 80px 6%;
+            background-color: #faebd796;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .section-title span {
+            color: var(--blue);
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            color: var(--text-mid);
+            max-width: 580px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            margin-bottom: 55px;
+        }
+
+        .section-header.center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            border-radius: 2px;
+            margin: 14px 0;
+        }
+
+        .center .gold-divider {
+            margin: 14px auto;
+        }
+
+        /* ============================================================
+           QUICK SERVICE TABS
+        ============================================================ */
+        .quick-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 28px 6%;
+            background: var(--white);
+            border-bottom: 2px solid var(--gray);
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .07);
+        }
+
+        .qtab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            border-radius: 25px;
+            font-size: .88rem;
+            font-weight: 600;
+            border: 2px solid var(--gray);
+            color: var(--text-mid);
+            transition: var(--transition);
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        .qtab i {
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .qtab:hover,
+        .qtab.active {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-color: transparent;
+            color: var(--black);
+        }
+
+        .qtab:hover i,
+        .qtab.active i {
+            color: var(--black);
+        }
+
+        /* ============================================================
+           VISA COUNTRIES GRID
+        ============================================================ */
+        .visa-countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 16px;
+        }
+
+        .vc-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 2px solid var(--gray);
+            padding: 22px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vc-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .vc-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold);
+        }
+
+        .vc-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .vc-flag {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .vc-flag img {
+            width: 54px;
+            height: 38px;
+            object-fit: cover;
+            border-radius: 7px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .14);
+            border: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .vc-name {
+            font-weight: 700;
+            font-size: .95rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .vc-type {
+            font-size: .75rem;
+            color: var(--text-mid);
+            margin-bottom: 8px;
+        }
+
+        .vc-badge {
+            display: inline-block;
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+        }
+
+        .vc-badge.on-arrival {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .vc-badge.e-visa {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .vc-badge.sticker {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .vc-badge.free {
+            background: #f3e5f5;
+            color: #4a148c;
+        }
+
+        /* ============================================================
+           VISA SERVICES CARDS
+        ============================================================ */
+        .visa-services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .vs-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--gray);
+            padding: 32px 26px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vs-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .vs-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+        .vs-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .vs-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, rgba(198, 159, 74, .15), rgba(0, 70, 138, .12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            color: var(--gold);
+            transition: var(--transition);
+        }
+
+        .vs-card:hover .vs-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+        }
+
+        .vs-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .vs-card p {
+            font-size: .88rem;
+            color: var(--text-mid);
+            line-height: 1.65;
+            margin-bottom: 16px;
+        }
+
+        .vs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .vs-list li {
+            font-size: .83rem;
+            color: var(--text-mid);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-list li i {
+            color: var(--gold);
+            font-size: .8rem;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           PASSPORT SERVICES
+        ============================================================ */
+        .passport-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .passport-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            height: 420px;
+        }
+
+        .passport-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .passport-img-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: var(--radius);
+            padding: 16px 22px;
+            text-align: center;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .passport-img-badge .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--black);
+            line-height: 1;
+        }
+
+        .passport-img-badge .lbl {
+            font-size: .7rem;
+            color: rgba(0, 0, 0, .7);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .passport-services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ps-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--gray);
+            padding: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .ps-item:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            transform: translateX(4px);
+        }
+
+        .ps-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(198, 159, 74, .2), rgba(0, 70, 138, .15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+
+        .ps-body h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .ps-body p {
+            font-size: .83rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .ps-body .ps-time {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ============================================================
+           FLIGHT TICKET SEARCH
+        ============================================================ */
+        .flight-section {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+            padding: 80px 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flight-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=60');
+            background-size: cover;
+            background-position: center;
+            opacity: .1;
+        }
+
+        .flight-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .trip-type-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .tt-btn {
+            padding: 9px 22px;
+            border-radius: 25px;
+            font-size: .88rem;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, .3);
+            color: rgba(255, 255, 255, .7);
+            transition: var(--transition);
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .tt-btn.active,
+        .tt-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .flight-search-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+        }
+
+        .fs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr auto;
+            gap: 14px;
+            align-items: end;
+        }
+
+        .fs-grid-2 {
+            grid-template-columns: 1fr 1fr 1fr auto;
+        }
+
+        .fs-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fs-label {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--text-mid);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .fs-label i {
+            color: var(--gold);
+            font-size: .85rem;
+        }
+
+        .fs-input {
+            padding: 13px 16px;
+            border-radius: 8px;
+            border: 2px solid var(--gray);
+            font-size: .95rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .fs-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(198, 159, 74, .15);
+        }
+
+        .fs-input::placeholder {
+            color: #aaa;
+        }
+
+        .fs-swap-btn {
+            align-self: center;
+            margin-top: 22px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+            border: none;
+        }
+
+        .fs-swap-btn:hover {
+            transform: rotate(180deg);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .fs-search-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-weight: 700;
+            font-size: .95rem;
+            padding: 14px 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            align-self: end;
+        }
+
+        .fs-search-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .flight-class-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .fc-chip {
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: .82rem;
+            font-weight: 600;
+            border: 1.5px solid rgba(255, 255, 255, .3);
+            color: rgba(255, 255, 255, .75);
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .fc-chip.active,
+        .fc-chip:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .fc-chip i {
+            margin-right: 5px;
+        }
+
+        /* Passenger selector */
+        .pax-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .pax-box {
+            background: var(--gray-light);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .pax-label {
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-mid);
+            margin-bottom: 4px;
+        }
+
+        .pax-sublabel {
+            font-size: .7rem;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .pax-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pax-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--gray);
+            background: var(--white);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pax-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .pax-num {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* ============================================================
+           FLIGHT ENQUIRY FORM
+        ============================================================ */
+        .flight-enquiry-form {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .fef-header {
+            margin-bottom: 28px;
+        }
+
+        .fef-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .fef-header p {
+            font-size: .88rem;
+            color: var(--text-mid);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            letter-spacing: .3px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 2px solid var(--gray);
+            font-size: .9rem;
+            font-family: 'Roboto', sans-serif;
+            outline: none;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(198, 159, 74, .12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-weight: 700;
+            font-size: 1rem;
+            transition: var(--transition);
+            letter-spacing: .3px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .form-note {
+            text-align: center;
+            font-size: .78rem;
+            color: var(--text-mid);
+            margin-top: 12px;
+        }
+
+        .form-note i {
+            color: var(--gold);
+        }
+
+        /* ============================================================
+           VISA ENQUIRY FORM
+        ============================================================ */
+        .visa-form-section {
+            background: var(--gray-light);
+        }
+
+        .visa-form-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+
+        .vfl-left h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+        }
+
+        .vfl-left h2 span {
+            color: var(--blue);
+        }
+
+        .vfl-left p {
+            font-size: .92rem;
+            color: var(--text-mid);
+            line-height: 1.75;
+            margin-bottom: 28px;
+        }
+
+        .visa-process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .vps-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .vps-num {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: .9rem;
+            color: var(--black);
+        }
+
+        .vps-body h4 {
+            font-weight: 700;
+            font-size: .92rem;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .vps-body p {
+            font-size: .83rem;
+            color: var(--text-mid);
+            line-height: 1.55;
+        }
+
+        /* ============================================================
+           POPULAR VISA PACKAGES
+        ============================================================ */
+        .vpkg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .vpkg-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--gray);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 3px 16px rgba(0, 0, 0, .07);
+        }
+
+        .vpkg-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+        .vpkg-header {
+            padding: 28px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .vpkg-flag {
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .vpkg-flag img {
+            width: 70px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, .16);
+            border: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .vpkg-country {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .vpkg-type {
+            font-size: .78rem;
+            color: var(--text-mid);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vpkg-body {
+            padding: 0 24px 24px;
+        }
+
+        .vpkg-features {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-top: 1px solid var(--gray);
+            padding-top: 16px;
+        }
+
+        .vpkg-feature {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: .83rem;
+            color: var(--text-mid);
+        }
+
+        .vpkg-feature i {
+            color: var(--gold);
+            font-size: .8rem;
+            flex-shrink: 0;
+        }
+
+        .vpkg-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--gray);
+            padding-top: 16px;
+        }
+
+        .vpkg-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .vpkg-price span {
+            font-size: .75rem;
+            color: var(--text-mid);
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-size: .82rem;
+            font-weight: 700;
+            padding: 9px 20px;
+            border-radius: 25px;
+            transition: var(--transition);
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* ============================================================
+           PROCESS TIMELINE
+        ============================================================ */
+        .process-timeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            position: relative;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 34px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--blue));
+            z-index: 0;
+        }
+
+        .pt-step {
+            text-align: center;
+            padding: 0 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pt-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            background: var(--white);
+            border: 3px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
+            box-shadow: 0 4px 16px rgba(198, 159, 74, .25);
+            transition: var(--transition);
+        }
+
+        .pt-step:hover .pt-icon {
+            background: var(--gold);
+            color: var(--black);
+            transform: scale(1.1);
+        }
+
+        .pt-num {
+            font-size: .7rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .pt-title {
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .pt-desc {
+            font-size: .78rem;
+            color: var(--text-mid);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           WHY CHOOSE US STRIP
+        ============================================================ */
+        .why-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            background: linear-gradient(135deg, var(--black), var(--blue-dark));
+        }
+
+        .ws-item {
+            padding: 36px 28px;
+            border-right: 1px solid rgba(255, 255, 255, .08);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .ws-item:last-child {
+            border-right: none;
+        }
+
+        .ws-item:hover {
+            background: rgba(198, 159, 74, .1);
+        }
+
+        .ws-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .ws-item h4 {
+            font-weight: 700;
+            color: var(--white);
+            font-size: .95rem;
+            margin-bottom: 6px;
+        }
+
+        .ws-item p {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .6);
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           DOCUMENT CHECKLIST SECTION
+        ============================================================ */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .doc-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--gray);
+            padding: 28px 24px;
+            transition: var(--transition);
+        }
+
+        .doc-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+            transform: translateY(-5px);
+        }
+
+        .doc-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .doc-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(198, 159, 74, .2), rgba(0, 70, 138, .1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        .doc-card-header h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: .85rem;
+            color: var(--text-mid);
+        }
+
+        .doc-item i {
+            color: var(--gold);
+            font-size: .8rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           TESTIMONIALS STRIP
+        ============================================================ */
+        .mini-testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .mt-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--gray);
+            box-shadow: 0 3px 14px rgba(0, 0, 0, .07);
+            transition: var(--transition);
+        }
+
+        .mt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .mt-stars {
+            color: var(--gold);
+            font-size: .82rem;
+            margin-bottom: 10px;
+        }
+
+        .mt-text {
+            font-size: .87rem;
+            color: var(--text-mid);
+            line-height: 1.65;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .mt-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mt-av {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: .88rem;
+        }
+
+        .mt-name {
+            font-weight: 700;
+            font-size: .88rem;
+            color: var(--text-dark);
+        }
+
+        .mt-loc {
+            font-size: .75rem;
+            color: var(--text-mid);
+        }
+
+        /* ============================================================
+           CTA BANNER
+        ============================================================ */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            padding: 60px 6%;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .cta-banner p {
+            color: rgba(0, 0, 0, .7);
+            font-size: 1rem;
+            margin-bottom: 28px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-dark {
+            background: var(--black);
+            color: var(--white);
+            font-weight: 700;
+            font-size: .95rem;
+            padding: 13px 32px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .btn-dark:hover {
+            background: var(--blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--black);
+            font-weight: 700;
+            font-size: .95rem;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: 2px solid var(--black);
+            transition: var(--transition);
+        }
+
+        .btn-outline-dark:hover {
+            background: var(--black);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        footer {
+            background: var(--black);
+            color: rgba(255, 255, 255, .75);
+            padding: 70px 6% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand p {
+            font-size: .88rem;
+            line-height: 1.7;
+            color: #aaa;
+            margin-top: 16px;
+            max-width: 280px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: .9rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-weight: 700;
+            font-size: .95rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            font-size: .88rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            padding-left: 4px;
+        }
+
+        .footer-links a i {
+            font-size: .7rem;
+            color: var(--gold);
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: .85rem;
+            color: #aaa;
+        }
+
+        .footer-contact-item i {
+            color: var(--gold);
+            margin-top: 3px;
+            min-width: 16px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-bottom p {
+            font-size: .82rem;
+            color: #666;
+        }
+
+        .footer-bottom span {
+            color: var(--gold);
+        }
+
+        /* ============================================================
+           SCROLL TO TOP
+        ============================================================ */
+        #scrollTop {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        #scrollTop.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #scrollTop:hover {
+            transform: translateY(-3px);
+        }
+
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-36px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(36px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: .1s !important;
+        }
+
+        .delay-2 {
+            transition-delay: .2s !important;
+        }
+
+        .delay-3 {
+            transition-delay: .3s !important;
+        }
+
+        .delay-4 {
+            transition-delay: .4s !important;
+        }
+
+        .delay-5 {
+            transition-delay: .5s !important;
+        }
+
+        /* ============================================================
+           FORM SUCCESS
+        ============================================================ */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 28px;
+            background: #e8f5e9;
+            border-radius: var(--radius);
+            border: 1px solid #a5d6a7;
+            margin-top: 16px;
+        }
+
+        .form-success i {
+            font-size: 2.5rem;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .form-success h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 6px;
+        }
+
+        .form-success p {
+            font-size: .88rem;
+            color: #388e3c;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media(max-width: 1100px) {
+            .fs-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .fs-grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-timeline {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .process-timeline::before {
+                display: none;
+            }
+
+            .why-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .ws-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .ws-item:nth-child(1),
+            .ws-item:nth-child(2) {
+                border-bottom: 1px solid rgba(255, 255, 255, .08);
+            }
+        }
+
+        @media(max-width: 960px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px;
+            }
+
+            .visa-services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .passport-split {
+                grid-template-columns: 1fr;
+            }
+
+            .passport-img {
+                height: 280px;
+            }
+
+            .visa-form-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .doc-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .mini-testi-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .visa-countries-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+
+        @media(max-width: 768px) {
+            section {
+                padding: 56px 5%;
+            }
+
+            .quick-tabs {
+                padding: 16px 5%;
+                gap: 8px;
+            }
+
+            .qtab {
+                padding: 9px 16px;
+                font-size: .82rem;
+            }
+
+            .fs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fs-grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .pax-row {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .why-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .ws-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, .08);
+            }
+
+            .doc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mini-testi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vpkg-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .visa-services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .vpkg-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .visa-countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .trip-type-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+   <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+        <div class="nav-logo" onclick="showPage('home')">
+            <img src="images/logo.png" alt="Logo" class="logo-img">
+        </div>
+
+        <div class="nav-links">
+            <button class="nav-link" onclick="window.location.href='index.html'">
+                Home
+            </button>
+            <button class="nav-link" onclick="window.location.href='umrah.html'">
+                Umrah
+            </button>
+
+            <button class="nav-link" onclick="window.location.href='hajj.html'">
+                Hajj
+            </button>
+
+            <button class="nav-link" onclick="window.location.href='packages.html'">
+                Packages
+            </button>
+
+
+            <button class="nav-link" onclick="window.location.href='offers.html'">
+                Offers
+            </button>
+            <button class="nav-link active" onclick="window.location.href='visa.html'">
+                Visa & Flights
+            </button>
+            <button class="nav-link" onclick="window.location.href='about.html'">
+                About Us
+            </button>
+
+            <button class="nav-link" onclick="window.location.href='contact.html'">
+                Contact
+            </button>
+            <button class="nav-cta nav-link" onclick="window.location.href='contact.html'">Book Now</button>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="nav-link" onclick="window.location.href='index.html'">
+            Home
+        </button>
+        <button class="nav-link" onclick="window.location.href='umrah.html'">
+            Umrah
+        </button>
+
+        <button class="nav-link" onclick="window.location.href='hajj.html'">
+            Hajj
+        </button>
+
+        <button class="nav-link" onclick="window.location.href='packages.html'">
+            Packages
+        </button>
+
+
+        <button class="nav-link" onclick="window.location.href='offers.html'">
+            Offers
+        </button>
+        <button class="nav-link active" onclick="window.location.href='visa.html'">
+                Visa & Flights
+            </button>
+        <button class="nav-link" onclick="window.location.href='about.html'">
+            About Us
+        </button>
+
+        <button class="nav-link" onclick="window.location.href='contact.html'">
+            Contact
+        </button>
+        <button class="nav-cta nav-link" onclick="window.location.href='contact.html'">Book Now</button>
+    </div>
+
+    <!-- SCROLL TOP -->
+    <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i
+            class="fas fa-chevron-up"></i></button>
+
+    <!-- ===== PAGE HERO ===== -->
+    <div class="page-hero">
+        <div class="page-hero-content">
+            <h1>Visa &amp; <span>Flight Services</span></h1>
+            <p>Global visa assistance, passport services, and the best flight deals — all under one roof</p>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Visa &amp; Flights</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== QUICK SERVICE TABS ===== -->
+    <div class="quick-tabs">
+    <button class="qtab active" onclick="scrollToSection('visa-services')">
+        <i class="fas fa-passport"></i> Visa Services
+    </button>
+
+    <button class="qtab" onclick="scrollToSection('countries')">
+        <i class="fas fa-globe"></i> Countries
+    </button>
+
+    <button class="qtab" onclick="scrollToSection('passport-services')">
+        <i class="fas fa-id-card"></i> Passport Help
+    </button>
+
+    <button class="qtab" onclick="scrollToSection('flight-section')">
+        <i class="fas fa-plane"></i> Flight Tickets
+    </button>
+
+    <button class="qtab" onclick="scrollToSection('documents')">
+        <i class="fas fa-file-alt"></i> Documents
+    </button>
+
+    <button class="qtab" onclick="scrollToSection('visa-enquiry')">
+        <i class="fas fa-paper-plane"></i> Quick Enquiry
+    </button>
+</div>
+
+    <!-- ===== WHY STRIP ===== -->
+    <div class="why-strip">
+        <div class="ws-item reveal delay-1">
+            <div class="ws-icon"><i class="fas fa-shield-halved"></i></div>
+            <h4>100% Approval Support</h4>
+            <p>Expert guidance to maximise your visa approval chances with perfect documentation.</p>
+        </div>
+        <div class="ws-item reveal delay-2">
+            <div class="ws-icon"><i class="fas fa-bolt"></i></div>
+            <h4>Express Processing</h4>
+            <p>Urgent visa processing in as little as 24–72 hours for select destinations.</p>
+        </div>
+        <div class="ws-item reveal delay-3">
+            <div class="ws-icon"><i class="fas fa-headset"></i></div>
+            <h4>24/7 Expert Support</h4>
+            <p>Our visa experts are available around the clock for queries and updates.</p>
+        </div>
+        <div class="ws-item reveal delay-4">
+            <div class="ws-icon"><i class="fas fa-tags"></i></div>
+            <h4>Best Flight Prices</h4>
+            <p>Access to 500+ airlines. We guarantee the lowest fares for every route.</p>
+        </div>
+    </div>
+
+    <!-- ===== VISA SERVICES ===== -->
+    <section id="visa-services">
+        <div class="section-header center reveal">
+            <span class="section-label">What We Offer</span>
+            <h2 class="section-title">Complete <span>Visa Services</span></h2>
+            <div class="gold-divider"></div>
+            <p class="section-sub">End-to-end visa assistance for tourists, students, business travellers, and pilgrims.
+            </p>
+        </div>
+        <div class="visa-services-grid">
+            <div class="vs-card reveal delay-1">
+                <div class="vs-icon"><i class="fas fa-plane-departure"></i></div>
+                <h3>Tourist Visa</h3>
+                <p>Visit your dream destinations with our hassle-free tourist visa service. We handle every step from
+                    application to approval.</p>
+                <ul class="vs-list">
+                    <li><i class="fas fa-check-circle"></i> 100+ countries covered</li>
+                    <li><i class="fas fa-check-circle"></i> Online & sticker visa</li>
+                    <li><i class="fas fa-check-circle"></i> Single & multiple entry</li>
+                    <li><i class="fas fa-check-circle"></i> Document preparation</li>
+                    <li><i class="fas fa-check-circle"></i> Embassy submission support</li>
+                </ul>
+            </div>
+            <div class="vs-card reveal delay-2">
+                <div class="vs-icon"><i class="fas fa-briefcase"></i></div>
+                <h3>Business Visa</h3>
+                <p>Smooth business travel across borders. We specialise in corporate visa applications with quick
+                    turnaround times.</p>
+                <ul class="vs-list">
+                    <li><i class="fas fa-check-circle"></i> Invitation letter guidance</li>
+                    <li><i class="fas fa-check-circle"></i> Company documentation</li>
+                    <li><i class="fas fa-check-circle"></i> Multiple entry options</li>
+                    <li><i class="fas fa-check-circle"></i> Express processing</li>
+                    <li><i class="fas fa-check-circle"></i> Long-stay business visa</li>
+                </ul>
+            </div>
+            <div class="vs-card reveal delay-3">
+                <div class="vs-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Student Visa</h3>
+                <p>Pursue your education abroad with our comprehensive student visa assistance for top study
+                    destinations worldwide.</p>
+                <ul class="vs-list">
+                    <li><i class="fas fa-check-circle"></i> UK, USA, Canada, Australia</li>
+                    <li><i class="fas fa-check-circle"></i> University admission help</li>
+                    <li><i class="fas fa-check-circle"></i> SOP & document review</li>
+                    <li><i class="fas fa-check-circle"></i> Interview preparation</li>
+                    <li><i class="fas fa-check-circle"></i> Post-arrival support</li>
+                </ul>
+            </div>
+            <div class="vs-card reveal delay-2">
+                <div class="vs-icon"><i class="fas fa-mosque"></i></div>
+                <h3>Umrah / Hajj Visa</h3>
+                <p>Dedicated pilgrimage visa processing with deep expertise. Get your Umrah or Hajj visa approved
+                    quickly and correctly.</p>
+                <ul class="vs-list">
+                    <li><i class="fas fa-check-circle"></i> Ministry-approved operator</li>
+                    <li><i class="fas fa-check-circle"></i> Group & individual visas</li>
+                    <li><i class="fas fa-check-circle"></i> Fast-track processing</li>
+                    <li><i class="fas fa-check-circle"></i> Biometrics assistance</li>
+                    <li><i class="fas fa-check-circle"></i> Mahram documentation</li>
+                </ul>
+            </div>
+            <div class="vs-card reveal delay-3">
+                <div class="vs-icon"><i class="fas fa-heart"></i></div>
+                <h3>Family / Dependent Visa</h3>
+                <p>Reunite with your family abroad. We assist in dependent, spouse, and family reunion visa applications
+                    worldwide.</p>
+                <ul class="vs-list">
+                    <li><i class="fas fa-check-circle"></i> Spouse & children visas</li>
+                    <li><i class="fas fa-check-circle"></i> Relationship documentation</li>
+                    <li><i class="fas fa-check-circle"></i> Financial proof guidance</li>
+                    <li><i class="fas fa-check-circle"></i> Long stay/settlement visa</li>
+                    <li><i class="fas fa-check-circle"></i> End-to-end support</li>
+                </ul>
+            </div>
+            <div class="vs-card reveal delay-4">
+                <div class="vs-icon"><i class="fas fa-users"></i></div>
+                <h3>Group Visa</h3>
+                <p>Travelling with a group? We specialise in bulk visa applications for corporate teams, families, and
+                    pilgrimage groups.</p>
+                <ul class="vs-list">
+                    <li><i class="fas fa-check-circle"></i> Groups of 10–500+ persons</li>
+                    <li><i class="fas fa-check-circle"></i> Single point of contact</li>
+                    <li><i class="fas fa-check-circle"></i> Discounted processing fees</li>
+                    <li><i class="fas fa-check-circle"></i> Coordinated submissions</li>
+                    <li><i class="fas fa-check-circle"></i> Status tracking portal</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COUNTRIES WE SERVE ===== -->
+    <section id="countries" style="background: var(--white);">
+        <div class="section-header center reveal">
+            <span class="section-label">Global Reach</span>
+            <h2 class="section-title">Countries We <span>Cover</span></h2>
+            <div class="gold-divider"></div>
+            <p class="section-sub">Visa assistance for 100+ countries. Click any country to enquire.</p>
+        </div>
+        <div class="visa-countries-grid">
+            <div class="vc-card reveal delay-1" onclick="openEnquiry('UAE')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/ae.png"
+                        srcset="https://flagcdn.com/w160/ae.png 2x" alt="UAE Flag" loading="lazy"></div>
+                <div class="vc-name">UAE / Dubai</div>
+                <div class="vc-type">Tourist · Business</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-2" onclick="openEnquiry('Saudi Arabia')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/sa.png"
+                        srcset="https://flagcdn.com/w160/sa.png 2x" alt="Saudi Arabia Flag" loading="lazy"></div>
+                <div class="vc-name">Saudi Arabia</div>
+                <div class="vc-type">Tourist · Umrah · Hajj</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-3" onclick="openEnquiry('UK')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/gb.png"
+                        srcset="https://flagcdn.com/w160/gb.png 2x" alt="United Kingdom Flag" loading="lazy"></div>
+                <div class="vc-name">United Kingdom</div>
+                <div class="vc-type">Tourist · Student · Business</div><span class="vc-badge sticker">Sticker</span>
+            </div>
+            <div class="vc-card reveal delay-1" onclick="openEnquiry('USA')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/us.png"
+                        srcset="https://flagcdn.com/w160/us.png 2x" alt="USA Flag" loading="lazy"></div>
+                <div class="vc-name">USA</div>
+                <div class="vc-type">Tourist · Student · Business</div><span class="vc-badge sticker">Sticker</span>
+            </div>
+            <div class="vc-card reveal delay-2" onclick="openEnquiry('Canada')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/ca.png"
+                        srcset="https://flagcdn.com/w160/ca.png 2x" alt="Canada Flag" loading="lazy"></div>
+                <div class="vc-name">Canada</div>
+                <div class="vc-type">Tourist · Student</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-3" onclick="openEnquiry('Australia')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/au.png"
+                        srcset="https://flagcdn.com/w160/au.png 2x" alt="Australia Flag" loading="lazy"></div>
+                <div class="vc-name">Australia</div>
+                <div class="vc-type">Tourist · Student</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-1" onclick="openEnquiry('Schengen')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/eu.png"
+                        srcset="https://flagcdn.com/w160/eu.png 2x" alt="Schengen / Europe Flag" loading="lazy"></div>
+                <div class="vc-name">Schengen (26 Countries)</div>
+                <div class="vc-type">Tourist · Business</div><span class="vc-badge sticker">Sticker</span>
+            </div>
+            <div class="vc-card reveal delay-2" onclick="openEnquiry('Thailand')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/th.png"
+                        srcset="https://flagcdn.com/w160/th.png 2x" alt="Thailand Flag" loading="lazy"></div>
+                <div class="vc-name">Thailand</div>
+                <div class="vc-type">Tourist</div><span class="vc-badge on-arrival">On Arrival</span>
+            </div>
+            <div class="vc-card reveal delay-3" onclick="openEnquiry('Malaysia')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/my.png"
+                        srcset="https://flagcdn.com/w160/my.png 2x" alt="Malaysia Flag" loading="lazy"></div>
+                <div class="vc-name">Malaysia</div>
+                <div class="vc-type">Tourist · Business</div><span class="vc-badge free">Visa Free</span>
+            </div>
+            <div class="vc-card reveal delay-1" onclick="openEnquiry('Singapore')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/sg.png"
+                        srcset="https://flagcdn.com/w160/sg.png 2x" alt="Singapore Flag" loading="lazy"></div>
+                <div class="vc-name">Singapore</div>
+                <div class="vc-type">Tourist · Business</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-2" onclick="openEnquiry('Indonesia (Bali)')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/id.png"
+                        srcset="https://flagcdn.com/w160/id.png 2x" alt="Indonesia Flag" loading="lazy"></div>
+                <div class="vc-name">Bali / Indonesia</div>
+                <div class="vc-type">Tourist</div><span class="vc-badge on-arrival">On Arrival</span>
+            </div>
+            <div class="vc-card reveal delay-3" onclick="openEnquiry('Japan')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/jp.png"
+                        srcset="https://flagcdn.com/w160/jp.png 2x" alt="Japan Flag" loading="lazy"></div>
+                <div class="vc-name">Japan</div>
+                <div class="vc-type">Tourist · Business</div><span class="vc-badge sticker">Sticker</span>
+            </div>
+            <div class="vc-card reveal delay-1" onclick="openEnquiry('Turkey')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/tr.png"
+                        srcset="https://flagcdn.com/w160/tr.png 2x" alt="Turkey Flag" loading="lazy"></div>
+                <div class="vc-name">Turkey</div>
+                <div class="vc-type">Tourist</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-2" onclick="openEnquiry('Kenya')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/ke.png"
+                        srcset="https://flagcdn.com/w160/ke.png 2x" alt="Kenya Flag" loading="lazy"></div>
+                <div class="vc-name">Kenya / Safari</div>
+                <div class="vc-type">Tourist</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+            <div class="vc-card reveal delay-3" onclick="openEnquiry('Maldives')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/mv.png"
+                        srcset="https://flagcdn.com/w160/mv.png 2x" alt="Maldives Flag" loading="lazy"></div>
+                <div class="vc-name">Maldives</div>
+                <div class="vc-type">Tourist</div><span class="vc-badge free">Visa Free</span>
+            </div>
+            <div class="vc-card reveal delay-1" onclick="openEnquiry('Jordan')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/jo.png"
+                        srcset="https://flagcdn.com/w160/jo.png 2x" alt="Jordan Flag" loading="lazy"></div>
+                <div class="vc-name">Jordan</div>
+                <div class="vc-type">Tourist · Pilgrimage</div><span class="vc-badge on-arrival">On Arrival</span>
+            </div>
+            <div class="vc-card reveal delay-2" onclick="openEnquiry('Morocco')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/ma.png"
+                        srcset="https://flagcdn.com/w160/ma.png 2x" alt="Morocco Flag" loading="lazy"></div>
+                <div class="vc-name">Morocco</div>
+                <div class="vc-type">Tourist</div><span class="vc-badge free">Visa Free</span>
+            </div>
+            <div class="vc-card reveal delay-3" onclick="openEnquiry('New Zealand')">
+                <div class="vc-flag"><img src="https://flagcdn.com/w80/nz.png"
+                        srcset="https://flagcdn.com/w160/nz.png 2x" alt="New Zealand Flag" loading="lazy"></div>
+                <div class="vc-name">New Zealand</div>
+                <div class="vc-type">Tourist · Student</div><span class="vc-badge e-visa">E-Visa</span>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:32px">
+            <p style="color:var(--text-mid); font-size:.9rem; margin-bottom:14px">Don't see your country? We cover 100+
+                destinations.</p>
+            <button class="btn-book" style="padding:12px 32px; font-size:.95rem" onclick="openEnquiry('')">Enquire for
+                Any Country</button>
+        </div>
+    </section>
+
+    <!-- ===== PASSPORT SERVICES ===== -->
+    <section id="passport-services">
+        <div class="passport-split">
+            <div class="reveal-left">
+                <div class="passport-img">
+                    <img src="https://images.unsplash.com/photo-1601933470096-0e34634ffcde?w=700&q=80"
+                        alt="Passport Services">
+                    <div class="passport-img-badge">
+                        <div class="num">10K+</div>
+                        <div class="lbl">Passports Assisted</div>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal-right">
+                <span class="section-label">Passport Assistance</span>
+                <h2 class="section-title">Passport &amp; <span>Document Help</span></h2>
+                <div class="gold-divider"></div>
+                <p style="color:var(--text-mid);font-size:.95rem;line-height:1.75;margin-bottom:28px">From fresh
+                    passport applications to urgent renewals and police verification — our expert team guides you
+                    through the entire process, saving you time and stress.</p>
+                <div class="passport-services-list">
+                    <div class="ps-item">
+                        <div class="ps-icon"><i class="fas fa-passport"></i></div>
+                        <div class="ps-body">
+                            <h4>Fresh Passport Application</h4>
+                            <p>Complete guidance for first-time passport applicants. Form filling, document checklist,
+                                and appointment booking.</p>
+                            <div class="ps-time"><i class="fas fa-clock"></i> Processing: 7–30 working days</div>
+                        </div>
+                    </div>
+                    <div class="ps-item">
+                        <div class="ps-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="ps-body">
+                            <h4>Passport Renewal</h4>
+                            <p>Renew expired or about-to-expire passports. We handle all paperwork and Passport Seva
+                                Kendra coordination.</p>
+                            <div class="ps-time"><i class="fas fa-clock"></i> Normal: 15 days | Tatkal: 3–5 days</div>
+                        </div>
+                    </div>
+                    <div class="ps-item">
+                        <div class="ps-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="ps-body">
+                            <h4>Tatkal / Urgent Passport</h4>
+                            <p>Emergency passport processing for urgent travel. Priority appointment booking and
+                                same-day document submission.</p>
+                            <div class="ps-time"><i class="fas fa-clock"></i> Delivered within 3–5 working days</div>
+                        </div>
+                    </div>
+                    <div class="ps-item">
+                        <div class="ps-icon"><i class="fas fa-edit"></i></div>
+                        <div class="ps-body">
+                            <h4>Passport Correction / Update</h4>
+                            <p>Name, date of birth, or address correction in passport. Police verification coordination
+                                included.</p>
+                            <div class="ps-time"><i class="fas fa-clock"></i> 10–21 working days</div>
+                        </div>
+                    </div>
+                    <div class="ps-item">
+                        <div class="ps-icon"><i class="fas fa-file-contract"></i></div>
+                        <div class="ps-body">
+                            <h4>Form Filling Assistance</h4>
+                            <p>Accurate form filling for passports, visas, and immigration documents. Avoid rejection
+                                with error-free applications.</p>
+                            <div class="ps-time"><i class="fas fa-clock"></i> Same-day service available</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FLIGHT TICKETS ===== -->
+    <section class="flight-section" id="flight-section">
+        <div class="flight-inner">
+            <div class="section-header center reveal" style="margin-bottom:36px">
+                <span class="section-label" style="color:var(--gold-light)">Book Your Flight</span>
+                <h2 class="section-title" style="color:var(--white)">Find the <span style="color:var(--gold)">Best
+                        Flights</span></h2>
+                <div class="gold-divider" style="margin:14px auto"></div>
+                <p style="color:rgba(255,255,255,.7); font-size:.95rem">500+ airlines · Best price guarantee · Instant
+                    confirmation</p>
+            </div>
+
+            <!-- Trip Type + Class -->
+            <!-- <div
+                style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px">
+                <div class="trip-type-tabs">
+                    <button class="tt-btn active" id="ttOne" onclick="setTrip('oneway')"><i
+                            class="fas fa-arrow-right"></i> One Way</button>
+                    <button class="tt-btn" id="ttRound" onclick="setTrip('round')"><i class="fas fa-exchange-alt"></i>
+                        Round Trip</button>
+                    <button class="tt-btn" id="ttMulti" onclick="setTrip('multi')"><i class="fas fa-route"></i>
+                        Multi-City</button>
+                </div>
+                <div class="flight-class-row">
+                    <button class="fc-chip active" onclick="setClass(this)"><i class="fas fa-chair"></i>
+                        Economy</button>
+                    <button class="fc-chip" onclick="setClass(this)"><i class="fas fa-couch"></i> Business</button>
+                    <button class="fc-chip" onclick="setClass(this)"><i class="fas fa-star"></i> First Class</button>
+                </div>
+            </div>
+
+            <div class="flight-search-box">
+                <div id="flightFormOW">
+                    <div class="fs-grid" id="fsGridOW">
+                        <div class="fs-field">
+                            <label class="fs-label"><i class="fas fa-plane-departure"></i> From</label>
+                            <input type="text" class="fs-input" placeholder="City or Airport (e.g. Hyderabad)"
+                                id="fromCity">
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:center;padding-top:22px">
+                            <button class="fs-swap-btn" onclick="swapCities()" title="Swap cities"><i
+                                    class="fas fa-exchange-alt"></i></button>
+                        </div>
+                        <div class="fs-field">
+                            <label class="fs-label"><i class="fas fa-plane-arrival"></i> To</label>
+                            <input type="text" class="fs-input" placeholder="City or Airport (e.g. Dubai)" id="toCity">
+                        </div>
+                        <div class="fs-field">
+                            <label class="fs-label"><i class="fas fa-calendar-alt"></i> Departure Date</label>
+                            <input type="date" class="fs-input" id="depDate">
+                        </div>
+                        <div class="fs-field" id="retDateField" style="display:none">
+                            <label class="fs-label"><i class="fas fa-calendar-check"></i> Return Date</label>
+                            <input type="date" class="fs-input" id="retDate">
+                        </div>
+                        <div>
+                            <button class="fs-search-btn" onclick="searchFlight()"><i class="fas fa-search"></i> Search
+                                Flights</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pax-row" style="margin-top:20px">
+                    <div class="pax-box">
+                        <div class="pax-label">Adults</div>
+                        <div class="pax-sublabel">12+ years</div>
+                        <div class="pax-counter">
+                            <button class="pax-btn" onclick="changePax('adult',-1)">−</button>
+                            <span class="pax-num" id="adultNum">1</span>
+                            <button class="pax-btn" onclick="changePax('adult',1)">+</button>
+                        </div>
+                    </div>
+                    <div class="pax-box">
+                        <div class="pax-label">Children</div>
+                        <div class="pax-sublabel">2–11 years</div>
+                        <div class="pax-counter">
+                            <button class="pax-btn" onclick="changePax('child',-1)">−</button>
+                            <span class="pax-num" id="childNum">0</span>
+                            <button class="pax-btn" onclick="changePax('child',1)">+</button>
+                        </div>
+                    </div>
+                    <div class="pax-box">
+                        <div class="pax-label">Infants</div>
+                        <div class="pax-sublabel">Under 2 years</div>
+                        <div class="pax-counter">
+                            <button class="pax-btn" onclick="changePax('infant',-1)">−</button>
+                            <span class="pax-num" id="infantNum">0</span>
+                            <button class="pax-btn" onclick="changePax('infant',1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <form action="https://api.web3forms.com/submit" method="POST" class="flight-enquiry-form" id="flightEnquiry">
+
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="48e025b8-2ec8-4a5f-bb08-783cd577711f">
+
+    <!-- Optional -->
+    <input type="hidden" name="subject" value="New Flight Enquiry">
+    <input type="hidden" name="from_name" value="Paradise Website">
+    <input type="checkbox" name="botcheck" style="display:none;">
+
+    <div class="fef-header">
+        <h3>
+            <i class="fas fa-paper-plane" style="color:var(--gold)"></i>
+            &nbsp;Can't Find Your Flight? Send an Enquiry
+        </h3>
+        <p>Our travel experts will find the best flight deals and call you back within 2 hours.</p>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label><i class="fas fa-user" style="color:var(--gold)"></i> Full Name *</label>
+            <input type="text" name="Full Name" placeholder="Your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-phone" style="color:var(--gold)"></i> Phone / WhatsApp *</label>
+            <input type="tel" name="Phone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label><i class="fas fa-plane-departure" style="color:var(--gold)"></i> Flying From *</label>
+            <input type="text" name="Flying From" placeholder="City / Airport (e.g. Hyderabad)" required>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-plane-arrival" style="color:var(--gold)"></i> Flying To *</label>
+            <input type="text" name="Flying To" placeholder="City / Airport (e.g. Dubai, Jeddah)" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label><i class="fas fa-calendar" style="color:var(--gold)"></i> Travel Date *</label>
+            <input type="date" name="Travel Date" required>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-calendar-check" style="color:var(--gold)"></i> Return Date</label>
+            <input type="date" name="Return Date">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label><i class="fas fa-users" style="color:var(--gold)"></i> No. of Passengers *</label>
+            <input type="number" name="Passengers" placeholder="e.g. 2" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-chair" style="color:var(--gold)"></i> Preferred Class</label>
+            <select name="Preferred Class">
+                <option>Economy</option>
+                <option>Business Class</option>
+                <option>First Class</option>
+                <option>Premium Economy</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><i class="fas fa-comment" style="color:var(--gold)"></i> Additional Notes</label>
+        <textarea
+            name="Additional Notes"
+            placeholder="Preferred airline, meal requirements, special assistance, flexible dates, etc."></textarea>
+    </div>
+
+    <button type="submit" class="form-submit">
+        <i class="fas fa-paper-plane"></i>
+        &nbsp;Send Flight Enquiry
+    </button>
+
+    <div class="form-note">
+        <i class="fas fa-lock"></i>
+        Your details are safe with us. No spam, ever.
+    </div>
+
+</form>
+        </div>
+    </section>
+
+    <!-- ===== POPULAR VISA PACKAGES ===== -->
+    <section style="background:var(--white)">
+        <div class="section-header center reveal">
+            <span class="section-label">Popular Visas</span>
+            <h2 class="section-title">Most Requested <span>Visa Packages</span></h2>
+            <div class="gold-divider"></div>
+        </div>
+        <div class="vpkg-grid">
+            <div class="vpkg-card reveal delay-1">
+                <div class="vpkg-header">
+                    <div class="vpkg-flag"><img src="https://flagcdn.com/w80/ae.png"
+                            srcset="https://flagcdn.com/w160/ae.png 2x" alt="UAE Flag" loading="lazy"></div>
+                    <div class="vpkg-country">UAE / Dubai</div>
+                    <div class="vpkg-type">Tourist Visa · 30 Days</div>
+                </div>
+                <div class="vpkg-body">
+                    <div class="vpkg-features">
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> E-Visa — 100% Online</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Approved in 2–3 Working Days</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Single & 60-Day Options</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Document Preparation Included
+                        </div>
+                    </div>
+                    <div class="vpkg-footer">
+                        <button class="btn-book" onclick="openEnquiry('UAE')">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vpkg-card reveal delay-2">
+                <div class="vpkg-header"
+                    style="background:linear-gradient(135deg,rgba(198,159,74,.08),rgba(0,70,138,.05))">
+                    <div class="vpkg-flag"><img src="https://flagcdn.com/w80/sa.png"
+                            srcset="https://flagcdn.com/w160/sa.png 2x" alt="Saudi Arabia Flag" loading="lazy"></div>
+                    <div class="vpkg-country">Saudi Arabia</div>
+                    <div class="vpkg-type">Tourist Visa · 90 Days</div>
+                </div>
+                <div class="vpkg-body">
+                    <div class="vpkg-features">
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> E-Visa Available Online</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Multiple Entry Option</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Umrah & Hajj Visa Specialists
+                        </div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Ministry-Approved Processing</div>
+                    </div>
+                    <div class="vpkg-footer">
+                        <button class="btn-book" onclick="openEnquiry('Saudi Arabia')">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vpkg-card reveal delay-3">
+                <div class="vpkg-header">
+                    <div class="vpkg-flag"><img src="https://flagcdn.com/w80/eu.png"
+                            srcset="https://flagcdn.com/w160/eu.png 2x" alt="Schengen / Europe Flag" loading="lazy">
+                    </div>
+                    <div class="vpkg-country">Schengen Visa</div>
+                    <div class="vpkg-type">Tourist · 26 Countries</div>
+                </div>
+                <div class="vpkg-body">
+                    <div class="vpkg-features">
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Covers France, Italy, Spain +23
+                        </div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> 90 Days in 180-Day Period</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Complete Document Support</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Embassy Appointment Booking</div>
+                    </div>
+                    <div class="vpkg-footer">
+                        <button class="btn-book" onclick="openEnquiry('Schengen')">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="vpkg-card reveal delay-4">
+                <div class="vpkg-header">
+                    <div class="vpkg-flag"><img src="https://flagcdn.com/w80/gb.png"
+                            srcset="https://flagcdn.com/w160/gb.png 2x" alt="United Kingdom Flag" loading="lazy"></div>
+                    <div class="vpkg-country">United Kingdom</div>
+                    <div class="vpkg-type">Tourist · 6 Months</div>
+                </div>
+                <div class="vpkg-body">
+                    <div class="vpkg-features">
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Online Application Support</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Biometrics Appointment Help</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Financial Proof Guidance</div>
+                        <div class="vpkg-feature"><i class="fas fa-check-circle"></i> Student & Work Visas Too</div>
+                    </div>
+                    <div class="vpkg-footer">
+                        <button class="btn-book" onclick="openEnquiry('UK')">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section style="background:var(--gray-light)">
+        <div class="section-header center reveal">
+            <span class="section-label">Process</span>
+            <h2 class="section-title">How We Get Your <span>Visa Approved</span></h2>
+            <div class="gold-divider"></div>
+        </div>
+        <div class="process-timeline reveal">
+            <div class="pt-step">
+                <div class="pt-icon"><i class="fas fa-comments"></i></div>
+                <div class="pt-num">Step 01</div>
+                <div class="pt-title">Free Consultation</div>
+                <div class="pt-desc">Speak to our visa expert and understand all requirements</div>
+            </div>
+            <div class="pt-step">
+                <div class="pt-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="pt-num">Step 02</div>
+                <div class="pt-title">Document Submission</div>
+                <div class="pt-desc">Submit all required documents. We check and verify each one</div>
+            </div>
+            <div class="pt-step">
+                <div class="pt-icon"><i class="fas fa-paper-plane"></i></div>
+                <div class="pt-num">Step 03</div>
+                <div class="pt-title">Application Filing</div>
+                <div class="pt-desc">We file your application with the embassy on your behalf</div>
+            </div>
+            <div class="pt-step">
+                <div class="pt-icon"><i class="fas fa-search"></i></div>
+                <div class="pt-num">Step 04</div>
+                <div class="pt-title">Track Status</div>
+                <div class="pt-desc">Real-time updates on your application status via WhatsApp</div>
+            </div>
+            <div class="pt-step">
+                <div class="pt-icon"><i class="fas fa-passport"></i></div>
+                <div class="pt-num">Step 05</div>
+                <div class="pt-title">Visa Delivered</div>
+                <div class="pt-desc">Your approved visa delivered to your doorstep. Pack your bags!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DOCUMENT CHECKLIST ===== -->
+    <section id="documents" style="background:var(--white)">
+        <div class="section-header center reveal">
+            <span class="section-label">Checklist</span>
+            <h2 class="section-title">Document <span>Requirements</span></h2>
+            <div class="gold-divider"></div>
+            <p class="section-sub">General documents required. Specific requirements vary by country.</p>
+        </div>
+        <div class="doc-grid">
+            <div class="doc-card reveal delay-1">
+                <div class="doc-card-header">
+                    <div class="doc-card-icon"><i class="fas fa-passport"></i></div>
+                    <h4>Passport Documents</h4>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Original passport (min. 6 months validity)
+                    </div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Passport copies — all pages</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Old passports (if any)</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> 2 recent passport-size photos (white
+                        background)</div>
+                </div>
+            </div>
+            <div class="doc-card reveal delay-2">
+                <div class="doc-card-header">
+                    <div class="doc-card-icon"><i class="fas fa-id-card"></i></div>
+                    <h4>Identity & Address Proof</h4>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Aadhaar Card (front & back)</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> PAN Card</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Voter ID / Driving Licence</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Utility bill for address proof</div>
+                </div>
+            </div>
+            <div class="doc-card reveal delay-3">
+                <div class="doc-card-header">
+                    <div class="doc-card-icon"><i class="fas fa-university"></i></div>
+                    <h4>Financial Documents</h4>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> 3–6 months bank statements</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Bank balance certificate</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Income Tax Returns (ITR)</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Salary slips (3 months)</div>
+                </div>
+            </div>
+            <div class="doc-card reveal delay-2">
+                <div class="doc-card-header">
+                    <div class="doc-card-icon"><i class="fas fa-plane"></i></div>
+                    <h4>Travel Documents</h4>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Confirmed flight itinerary</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Hotel booking confirmation</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Travel insurance certificate</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Tour itinerary / invitation letter</div>
+                </div>
+            </div>
+            <div class="doc-card reveal delay-3">
+                <div class="doc-card-header">
+                    <div class="doc-card-icon"><i class="fas fa-briefcase"></i></div>
+                    <h4>Employment Proof</h4>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Employment letter from employer</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Leave approval letter</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Business registration (self-employed)
+                    </div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> NOC from employer</div>
+                </div>
+            </div>
+            <div class="doc-card reveal delay-4">
+                <div class="doc-card-header">
+                    <div class="doc-card-icon"><i class="fas fa-mosque"></i></div>
+                    <h4>For Umrah / Hajj</h4>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Meningitis vaccination certificate</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Mahram relationship proof (women)</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Nikah nama / marriage certificate</div>
+                    <div class="doc-item"><i class="fas fa-check-circle"></i> Group leader approval letter</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VISA ENQUIRY FORM ===== -->
+    <section class="visa-form-section" id="visa-enquiry">
+        <div class="visa-form-layout">
+            <div class="vfl-left reveal-left">
+                <span class="section-label">Apply Now</span>
+                <h2>Get Your Visa<br><span>Approved Fast</span></h2>
+                <div class="gold-divider"></div>
+                <p>Fill in your details and our visa team will call you back within 2 hours with a personalised plan,
+                    complete document checklist, and cost estimate. 100% free consultation!</p>
+                <div class="visa-process-steps">
+                    <div class="vps-item">
+                        <div class="vps-num">1</div>
+                        <div class="vps-body">
+                            <h4>Submit Your Enquiry</h4>
+                            <p>Fill the form with your travel details</p>
+                        </div>
+                    </div>
+                    <div class="vps-item">
+                        <div class="vps-num">2</div>
+                        <div class="vps-body">
+                            <h4>Free Expert Consultation</h4>
+                            <p>Our visa specialist will call you within 2 hours</p>
+                        </div>
+                    </div>
+                    <div class="vps-item">
+                        <div class="vps-num">3</div>
+                        <div class="vps-body">
+                            <h4>Document Collection</h4>
+                            <p>Submit documents via WhatsApp or visit our office</p>
+                        </div>
+                    </div>
+                    <div class="vps-item">
+                        <div class="vps-num">4</div>
+                        <div class="vps-body">
+                            <h4>We Apply & Track</h4>
+                            <p>We file your application and keep you updated daily</p>
+                        </div>
+                    </div>
+                    <div class="vps-item">
+                        <div class="vps-num">5</div>
+                        <div class="vps-body">
+                            <h4>Visa Delivered!</h4>
+                            <p>Visa delivered to your home. Get ready to travel!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form action="https://api.web3forms.com/submit" method="POST" class="flight-enquiry-form" id="visaEnquiryForm">
+
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="48e025b8-2ec8-4a5f-bb08-783cd577711f">
+
+    <!-- Optional -->
+    <input type="hidden" name="subject" value="New Visa / Passport Enquiry">
+    <input type="hidden" name="from_name" value="Paradise Website">
+    <input type="checkbox" name="botcheck" style="display:none;">
+
+    <div class="fef-header">
+        <h3>
+            <i class="fas fa-passport" style="color:var(--gold)"></i>
+            &nbsp;Visa / Passport Enquiry Form
+        </h3>
+        <p>Fill below and we'll get back to you within 2 hours — completely free!</p>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="Full Name" placeholder="Your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone / WhatsApp *</label>
+            <input type="tel" name="Phone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="Email" placeholder="your@email.com">
+        </div>
+
+        <div class="form-group">
+            <label>Service Required *</label>
+            <select name="Service Required" required>
+                <option value="">— Select Service —</option>
+
+                <optgroup label="Visa Services">
+                    <option>Tourist Visa</option>
+                </optgroup>
+
+                <optgroup label="Passport Services">
+                    <option>Fresh Passport Application</option>
+                    <option>Passport Renewal</option>
+                    <option>Tatkal / Urgent Passport</option>
+                    <option>Passport Correction</option>
+                    <option>Form Filling Assistance</option>
+                </optgroup>
+
+                <optgroup label="Flight Tickets">
+                    <option>One-Way Ticket</option>
+                    <option>Round-Trip Ticket</option>
+                    <option>Group Flight Booking</option>
+                </optgroup>
+
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Destination Country *</label>
+            <input type="text" name="Destination Country" placeholder="e.g. UAE, UK, Saudi Arabia" required>
+        </div>
+
+        <div class="form-group">
+            <label>Travel / Appointment Date</label>
+            <input type="date" name="Travel Date">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>No. of Applicants</label>
+            <input type="number" name="Applicants" placeholder="e.g. 2" min="1">
+        </div>
+
+        <div class="form-group">
+            <label>Urgency Level</label>
+            <select name="Urgency">
+                <option>Normal — 7–15 days</option>
+                <option>Urgent — 3–5 days</option>
+                <option>Very Urgent — 24–48 hrs</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Any Special Requirements / Notes</label>
+        <textarea
+            name="Notes"
+            placeholder="Tell us anything specific — previously rejected visa, upcoming travel emergency, group requirements, passport correction details, etc."></textarea>
+    </div>
+
+    <button type="submit" class="form-submit">
+        <i class="fas fa-paper-plane"></i>
+        &nbsp;Submit Enquiry — We'll Call You Back!
+    </button>
+
+    <div class="form-note">
+        <i class="fas fa-shield-halved"></i>
+        100% Free Consultation &nbsp;|&nbsp;
+        <i class="fas fa-lock"></i>
+        Your info is 100% confidential
+    </div>
+
+</form>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section style="background:var(--white)">
+        <div class="section-header center reveal">
+            <span class="section-label">Happy Clients</span>
+            <h2 class="section-title">What Our Clients <span>Say About Us</span></h2>
+            <div class="gold-divider"></div>
+        </div>
+        <div class="mini-testi-grid">
+            <div class="mt-card reveal delay-1">
+                <div class="mt-stars">★★★★★</div>
+                <p class="mt-text">"Got my Schengen visa in just 9 working days! The team at Paradise Wide helped me
+                    with every document and even rehearsed my interview questions. Highly recommended!"</p>
+                <div class="mt-author">
+                    <div class="mt-av">SK</div>
+                    <div>
+                        <div class="mt-name">Sadia Khan</div>
+                        <div class="mt-loc">Hyderabad · Schengen Visa</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-card reveal delay-2">
+                <div class="mt-stars">★★★★★</div>
+                <p class="mt-text">"My Dubai visa was processed in 2 days! The team handled everything online. I just
+                    sent the documents on WhatsApp and received my visa the next morning. Amazing service!"</p>
+                <div class="mt-author">
+                    <div class="mt-av">RM</div>
+                    <div>
+                        <div class="mt-name">Ravi Mehta</div>
+                        <div class="mt-loc">Mumbai · UAE Tourist Visa</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-card reveal delay-3">
+                <div class="mt-stars">★★★★★</div>
+                <p class="mt-text">"Our family of 6 needed Umrah visas on urgent basis. They processed everything in 3
+                    days including all documentation. We were in Makkah within a week. JazakAllah Khair!"</p>
+                <div class="mt-author">
+                    <div class="mt-av">AJ</div>
+                    <div>
+                        <div class="mt-name">Abdul Jabbar</div>
+                        <div class="mt-loc">Hyderabad · Umrah Visa (Group)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <div class="cta-banner">
+        <div class="reveal">
+            <h2>🌍 Ready to Get Your Visa?</h2>
+            <p>Talk to our visa experts today — free consultation, zero hidden charges, and guaranteed support
+                throughout the process.</p>
+            <div class="cta-btns">
+                <a href="tel:+918469353585" class="btn-dark"><i class="fas fa-phone"></i> &nbsp;Call Us Now</a>
+                <a href="https://wa.me/918469353585" class="btn-outline-dark" target="_blank"><i
+                        class="fab fa-whatsapp"></i> &nbsp;WhatsApp Us</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo" onclick="showPage('home')">
+                    <img src="images/logo.png" alt="Logo" class="logo-img">
+                </div>
+                <p>Your trusted partner for world-class travel experiences, sacred pilgrimages, and unforgettable
+                    adventures
+                    since 2005.</p>
+                <div class="social-links">
+                    <a class="social-link" href="https://www.facebook.com/paradiseworldtravels"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="social-link"
+                        href="https://www.instagram.com/paradiseworldtravels?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+                            class="fab fa-instagram"></i></a>
+
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Packages</a>
+                    <a href="offers.html"><i class="fas fa-chevron-right"></i> Offers</a>
+                    <a href="umrah.html"><i class="fas fa-chevron-right"></i> Umrah</a>
+                    <a href="hajj.html"><i class="fas fa-chevron-right"></i> Hajj</a>
+                    <a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Top Destinations</h4>
+                <div class="footer-links">
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Dubai, UAE</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Makkah, Saudi Arabia</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Paris, France</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Bali, Indonesia</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Maldives</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Singapore</a>
+                    <a href="packages.html"><i class="fas fa-chevron-right"></i> Turkey</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <div class="footer-contact">
+                    <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Shop No ff-5 Preside
+                            Complex, Panpur Patiya, opp. Gramin Police Choki, Savagath, Savgadh, Himatnagar, Gujarat
+                            383001, India</span></div>
+                    <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 81287 86123<br>+91 84693
+                            53585</span>
+                    </div>
+                    <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>pwtravco@gmail.com</span>
+                    </div>
+                    <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 7:00
+                            PM<br>Sunday:
+                            10:00 AM – 4:00 PM</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 <span>Paradise Wide Package</span>. All Rights Reserved.</p>
+            <p>Designed with <span>♥</span> for travellers worldwide</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+    <script>
+        // ---- NAVBAR SCROLL ----
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+        });
+
+        // ---- MOBILE MENU ----
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const burger = document.getElementById('hamburger');
+            menu.classList.toggle('open');
+            burger.classList.toggle('open');
+        }
+
+        // ---- SMOOTH SCROLL TO SECTION ----
+        function scrollTo(id) {
+            const el = document.querySelector(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ---- REVEAL ON SCROLL ----
+        function initReveal() {
+            const items = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.1 });
+            items.forEach(i => obs.observe(i));
+        }
+        initReveal();
+
+        // ---- QUICK TABS ACTIVE ----
+        document.querySelectorAll('.qtab').forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.qtab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // ---- COUNTRY CARD HOVER ----
+        document.querySelectorAll('.vc-card').forEach(card => {
+            card.addEventListener('click', function () {
+                const country = this.querySelector('.vc-name').textContent;
+                openEnquiry(country);
+            });
+        });
+
+        // ---- OPEN ENQUIRY WITH PRE-FILLED COUNTRY ----
+        function openEnquiry(country) {
+            const input = document.getElementById('vCountry');
+            if (input && country) input.value = country;
+            document.getElementById('visa-enquiry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (input) { input.focus(); input.style.borderColor = 'var(--gold)'; setTimeout(() => input.style.borderColor = '', 2000); }
+        }
+
+        // ---- TRIP TYPE TOGGLE ----
+        function setTrip(type) {
+            document.querySelectorAll('.tt-btn').forEach(b => b.classList.remove('active'));
+            const retField = document.getElementById('retDateField');
+            if (type === 'oneway') { document.getElementById('ttOne').classList.add('active'); if (retField) retField.style.display = 'none'; }
+            if (type === 'round') { document.getElementById('ttRound').classList.add('active'); if (retField) retField.style.display = ''; }
+            if (type === 'multi') { document.getElementById('ttMulti').classList.add('active'); if (retField) retField.style.display = 'none'; }
+        }
+
+        // ---- CLASS SELECTION ----
+        function setClass(btn) {
+            document.querySelectorAll('.fc-chip').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // ---- SWAP CITIES ----
+        function swapCities() {
+            const from = document.getElementById('fromCity');
+            const to = document.getElementById('toCity');
+            if (from && to) { const tmp = from.value; from.value = to.value; to.value = tmp; }
+            const btn = document.querySelector('.fs-swap-btn');
+            btn.style.transform = 'rotate(180deg)';
+            setTimeout(() => btn.style.transform = '', 500);
+        }
+
+        // ---- PASSENGER COUNTER ----
+        const pax = { adult: 1, child: 0, infant: 0 };
+        function changePax(type, delta) {
+            pax[type] = Math.max(0, pax[type] + delta);
+            if (type === 'adult') pax[type] = Math.max(1, pax[type]);
+            document.getElementById(type + 'Num').textContent = pax[type];
+        }
+
+        // ---- FLIGHT SEARCH ----
+        function searchFlight() {
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            const date = document.getElementById('depDate').value;
+            if (!from || !to || !date) { alert('Please fill From, To, and Departure Date to search flights.'); return; }
+            // Pre-fill enquiry form and scroll to it
+            document.getElementById('fFrom').value = from;
+            document.getElementById('fTo').value = to;
+            document.getElementById('fDate').value = date;
+            document.getElementById('fPax').value = pax.adult + pax.child;
+            document.getElementById('flightEnquiry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('fName').focus();
+        }
+
+        // ---- FLIGHT ENQUIRY SUBMIT ----
+        function submitFlightEnquiry() {
+            const name = document.getElementById('fName').value.trim();
+            const phone = document.getElementById('fPhone').value.trim();
+            const from = document.getElementById('fFrom').value.trim();
+            const to = document.getElementById('fTo').value.trim();
+            if (!name || !phone || !from || !to) { alert('Please fill all required fields (Name, Phone, From, To).'); return; }
+            const success = document.getElementById('flightSuccess');
+            success.style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            ['fName', 'fPhone', 'fFrom', 'fTo', 'fDate', 'fReturn', 'fPax', 'fNotes'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        }
+
+        // ---- VISA FORM SUBMIT ----
+        function submitVisaForm() {
+            const name = document.getElementById('vName').value.trim();
+            const phone = document.getElementById('vPhone').value.trim();
+            const service = document.getElementById('vService').value;
+            const country = document.getElementById('vCountry').value.trim();
+            if (!name || !phone || !service || !country) { alert('Please fill all required fields: Name, Phone, Service, and Country.'); return; }
+            const success = document.getElementById('visaSuccess');
+            success.style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            ['vName', 'vPhone', 'vEmail', 'vCountry', 'vDate', 'vPax', 'vNotes'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+            document.getElementById('vService').selectedIndex = 0;
+            document.getElementById('vUrgency').selectedIndex = 0;
+        }
+
+        // ---- SET MIN DATE ----
+        const today = new Date().toISOString().split('T')[0];
+        ['depDate', 'retDate', 'fDate', 'fReturn', 'vDate'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.setAttribute('min', today);
+        });
+
+
+        function scrollToSection(id) {
+    const section = document.getElementById(id);
+
+    if (section) {
+        section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}
+    </script>
+</body>
+
+</html>

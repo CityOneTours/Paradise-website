@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hajj 2027 Registration | Paradise World Travels</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --gold: #c69f4a;
+      --gold-light: #e2c47a;
+      --gold-dark: #9a7a30;
+      --blue: #00468a;
+      --blue-dark: #002d5c;
+      --black: #111111;
+      --white: #ffffff;
+      --gray-light: #f5f5f5;
+      --gray: #e0e0e0;
+      --text-dark: #222222;
+      --text-mid: #555555;
+      --shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+      --shadow-gold: 0 8px 30px rgba(198, 159, 74, 0.3);
+      --radius: 12px;
+      --transition: 0.35s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--black);
+      padding: 0 4%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+      transition: var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(0, 0, 0, .97);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, .6);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .logo-img {
+      width: auto;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      font-size: .88rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: var(--transition);
+      letter-spacing: .3px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+      background: rgba(198, 159, 74, .12);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+      color: var(--black) !important;
+      font-weight: 700 !important;
+      padding: 9px 20px !important;
+      border-radius: 25px !important;
+      box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(198, 159, 74, .5);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background: var(--black);
+      z-index: 999;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      border-top: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu a {
+      color: #ccc;
+      font-size: 1rem;
+      padding: 12px 16px;
+      border-radius: 8px;
+      display: block;
+      width: 100%;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: var(--gold);
+      background: rgba(198, 159, 74, .1);
+    }
+
+    .page-hero {
+      position: relative;
+      height: 380px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 70px;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, .6), rgba(0, 70, 138, .5));
+    }
+
+    .hajj-hero {
+      background-image: url('https://plus.unsplash.com/premium_photo-1676208761578-0523b6e3f233?q=80&w=1200&auto=format&fit=crop');
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .page-hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .page-hero-content h1 span {
+      color: var(--gold);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: .85rem;
+      color: rgba(255, 255, 255, .7);
+    }
+
+    .breadcrumb a {
+      color: var(--gold-light);
+      transition: var(--transition);
+    }
+
+    .breadcrumb a:hover {
+      color: var(--gold);
+    }
+
+    .breadcrumb i {
+      font-size: .65rem;
+    }
+
+    section {
+      padding: 90px 6%;
+      background-color: #faebd796;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-title span {
+      color: var(--blue);
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-header.center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gold-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+      border-radius: 2px;
+      margin: 16px 0;
+    }
+
+    .center .gold-divider {
+      margin: 16px auto;
+    }
+
+    .umrah-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .umrah-intro-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 420px;
+    }
+
+    .umrah-intro-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .about-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .about-list-item i {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-top: 3px;
+    }
+
+    .about-list-item span {
+      font-size: .92rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: .9rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black)
+        }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 36px;
+      border-radius: 50px;
+      box-shadow: 0 6px 25px rgba(198, 159, 74, .45);
+      transition: var(--transition);
+      letter-spacing: .3px;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(198, 159, 74, .55);
+    }
+
+    .package-tiers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .tier-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--gray);
+      transition: var(--transition);
+      position: relative;
+      background: var(--white);
+    }
+
+    .tier-card.featured {
+      border-color: var(--gold);
+    }
+
+    .tier-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+
+    .tier-header {
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .tier-card.economy .tier-header {
+      background: linear-gradient(135deg, #444, #222);
+    }
+
+    .tier-card.standard .tier-header {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    }
+
+    .tier-card.premium .tier-header {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    }
+
+    .tier-badge {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .tier-card.economy .tier-badge {
+      color: #aaa;
+    }
+
+    .tier-card.standard .tier-badge {
+      color: rgba(255, 255, 255, .8);
+    }
+
+    .tier-card.premium .tier-badge {
+      color: rgba(0, 0, 0, .6);
+    }
+
+    .tier-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .tier-card.economy .tier-name,
+    .tier-card.standard .tier-name {
+      color: var(--white);
+    }
+
+    .tier-card.premium .tier-name {
+      color: var(--black);
+    }
+
+    .tier-price {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .tier-card.economy .tier-price,
+    .tier-card.standard .tier-price {
+      color: var(--gold);
+    }
+
+    .tier-card.premium .tier-price {
+      color: var(--black);
+    }
+
+    .tier-price sup {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .tier-price sub {
+      font-size: .8rem;
+      font-weight: 400;
+    }
+
+    .tier-body {
+      padding: 24px;
+    }
+
+    .tier-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .tier-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .88rem;
+      color: var(--text-mid);
+    }
+
+    .tier-feature i {
+      color: var(--gold);
+      font-size: .85rem;
+    }
+
+    .tier-featured-tag {
+      position: absolute;
+      top: 12px;
+      right: -28px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 5px 38px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transform: rotate(35deg);
+      z-index: 2;
+    }
+
+    .btn-book {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      font-size: .82rem;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 25px;
+      transition: var(--transition);
+      letter-spacing: .3px;
+      display: inline-block;
+    }
+
+    .btn-book:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    footer {
+      background: var(--black);
+      color: rgba(255, 255, 255, .75);
+      padding: 70px 6% 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand p {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: #aaa;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 20px;
+      letter-spacing: .5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: #aaa;
+      font-size: .88rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      padding-left: 4px;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: .85rem;
+      color: #aaa;
+    }
+
+    .footer-contact-item i {
+      color: var(--gold);
+      margin-top: 3px;
+      min-width: 16px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p {
+      font-size: .82rem;
+      color: #666;
+    }
+
+    .footer-bottom span {
+      color: var(--gold);
+    }
+
+    #scrollTop {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(198, 159, 74, .4);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    #scrollTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #scrollTop:hover {
+      transform: translateY(-3px);
+    }
+
+    .reveal,
+    .reveal-left,
+    .reveal-right {
+      opacity: 0;
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal {
+      transform: translateY(40px);
+    }
+
+    .reveal-left {
+      transform: translateX(-40px);
+    }
+
+    .reveal-right {
+      transform: translateX(40px);
+    }
+
+    .reveal.visible,
+    .reveal-left.visible,
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translate(0);
+    }
+
+    .delay-1 {
+      transition-delay: .1s !important;
+    }
+
+    .delay-2 {
+      transition-delay: .2s !important;
+    }
+
+    .delay-3 {
+      transition-delay: .3s !important;
+    }
+
+
+
+    .enquiry-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .info-card,
+    .enquiry-form {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(198, 159, 74, .25);
+    }
+
+    .info-card h3,
+    .enquiry-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+    }
+
+    .contact-line {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 16px 0;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .contact-line i {
+      color: var(--gold);
+      margin-top: 4px;
+      min-width: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--gray);
+      border-radius: 8px;
+      padding: 13px 14px;
+      font-family: inherit;
+      font-size: .95rem;
+      outline: none;
+      transition: var(--transition);
+      background: #fff;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(198, 159, 74, .15);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .notice-box {
+      background: rgba(198, 159, 74, .12);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 18px 20px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-top: 22px;
+    }
+
+    .services-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .service-box {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px;
+      border: 1px solid rgba(198, 159, 74, .25);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+      transition: var(--transition);
+    }
+
+    .service-box:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .service-box i {
+      color: var(--gold);
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+
+    .service-box h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .service-box p {
+      font-size: .88rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    @media(max-width:1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .enquiry-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 60px 5%;
+      }
+
+      .umrah-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-card,
+      .enquiry-form {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html">
+      <img src="images/logo.png" alt="Logo" class="logo-img">
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="umrah.html">Umrah</a>
+      <a href="hajj.html" class="active">Hajj</a>
+      <a href="packages.html">Packages</a>
+      <a href="offers.html">Offers</a>
+      <a href="visa.html">Visa & Flights</a>
+
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta" href="contact.html">Book Now</a>
+    </div>
+
+    <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="umrah.html">Umrah</a>
+    <a href="hajj.html" class="active">Hajj</a>
+    <a href="packages.html">Packages</a>
+    <a href="offers.html">Offers</a>
+    <a href="visa.html">Visa & Flights</a>
+
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main>
+    <div class="page-hero hajj-hero">
+      <div class="page-hero-content">
+        <h1><span>Hajj 2027</span> Registration</h1>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right"></i>
+          <span>Hajj 2027</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="hajjsection">
+      <div class="umrah-intro">
+        <div class="reveal-left">
+          <span class="section-label">Hajj 2027</span>
+          <h2 class="section-title">Register for <span>Hajj 2027</span></h2>
+          <div class="gold-divider"></div>
+          <p style="color:var(--text-mid);line-height:1.8;margin-bottom:20px">
+            Registrations are now open for Hajj 2027. Paradise World Travels offers complete assistance for your sacred
+            journey including documentation guidance, visa processing, accommodation, transportation and experienced
+            religious guidance. Submit your enquiry today and our team will contact you as soon as the official Hajj
+            packages are announced.
+          </p>
+
+          <div class="about-list">
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Hajj 2027 registration
+                assistance</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Complete documentation and visa
+                guidance</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Flight arrangements from India</span>
+            </div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Hotel accommodation in Makkah and
+                Madinah</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Manasik-e-Hajj guidance and
+                support</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Experienced Hajj guides and group
+                leaders</span></div>
+            <div class="about-list-item"><i class="fas fa-check-circle"></i><span>Air-conditioned coach transfers in
+                Saudi Arabia</span></div>
+          </div>
+
+          <a class="btn-primary" href="contact.html">Enquire for Hajj 2027 &nbsp;<i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="umrah-intro-img reveal-right">
+          <img
+            src="https://images.unsplash.com/photo-1713239060784-e6ed820a0715?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Hajj Pilgrimage">
+        </div>
+      </div>
+    </section>
+
+    <!-- <section style="background:var(--gray-light)">
+      <div class="section-header center reveal">
+        <span class="section-label">Hajj 2027</span>
+        <h2 class="section-title">Register Your <span>Interest Today</span></h2>
+        <div class="gold-divider"></div>
+        <p style="max-width:850px;margin:auto;color:#666;line-height:1.8;">
+          Hajj 2027 packages will be announced after official approvals and final arrangements. Please submit your
+          enquiry and our team will contact you with complete package details, availability and guidance.
+        </p>
+      </div>
+
+      <div class="enquiry-wrap reveal">
+        <div class="info-card">
+          <h3>Hajj 2027 Enquiry</h3>
+          <p style="color:var(--text-mid);line-height:1.8;">
+            We are accepting early enquiries for Hajj 2027. No package price is mentioned at this stage because official
+            rates and arrangements will be updated later.
+          </p>
+
+          <div class="notice-box">
+            <strong>Note:</strong> Hajj seats are limited and subject to official approval, availability, visa rules and
+            Saudi Hajj regulations.
+          </div>
+
+          <div style="margin-top:24px;">
+            <div class="contact-line"><i class="fas fa-phone"></i><span><strong>Office:</strong><br>+91 81287
+                86123</span></div>
+            <div class="contact-line"><i class="fas fa-user"></i><span><strong>Mohammad Bhai:</strong><br>+91 90678
+                69230</span></div>
+            <div class="contact-line"><i class="fas fa-mosque"></i><span><strong>Maulana Faizan
+                  Ashrafi</strong><br>Khalifa-e-Shaikhul Islam<br>+91 84693 53585</span></div>
+          </div>
+        </div>
+
+        <form class="enquiry-form" action="#" method="post">
+          <h3>Send Hajj Enquiry</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label>Mobile / WhatsApp</label>
+              <input type="tel" name="phone" placeholder="Enter mobile number" required>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="Enter email address">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" name="city" placeholder="Enter your city">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>No. of Adults</label>
+              <input type="number" name="adults" placeholder="Example: 2" min="1">
+            </div>
+            <div class="form-group">
+              <label>Preferred Departure</label>
+              <select name="departure">
+                <option value="">Select option</option>
+                <option>Ahmedabad</option>
+                <option>Mumbai</option>
+                <option>Delhi</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="Write your enquiry here..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;">Submit Enquiry</button>
+        </form>
+      </div>
+    </section> -->
+
+    <section>
+      <div class="section-header center reveal">
+        <span class="section-label">What We Offer</span>
+        <h2 class="section-title">Our <span>Hajj Services</span></h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-box reveal delay-1"><i class="fas fa-file-signature"></i>
+          <h4>Registration Assistance</h4>
+          <p>Guidance for Hajj 2027 registration and documentation.</p>
+        </div>
+        <div class="service-box reveal delay-1"><i class="fas fa-passport"></i>
+          <h4>Visa Support</h4>
+          <p>Complete support for visa and official travel requirements.</p>
+        </div>
+        <div class="service-box reveal delay-2"><i class="fas fa-plane-departure"></i>
+          <h4>Flight Arrangements</h4>
+          <p>Flight options from India as per final package availability.</p>
+        </div>
+        <div class="service-box reveal delay-2"><i class="fas fa-hotel"></i>
+          <h4>Accommodation</h4>
+          <p>Hotel arrangements in Makkah and Madinah.</p>
+        </div>
+        <div class="service-box reveal delay-3"><i class="fas fa-bus"></i>
+          <h4>Transport</h4>
+          <p>Ground transportation support during the journey.</p>
+        </div>
+        <div class="service-box reveal delay-3"><i class="fas fa-kaaba"></i>
+          <h4>Religious Guidance</h4>
+          <p>Experienced Hajj guides for Manasik-e-Hajj and journey support.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" onclick="showPage('home')">
+          <img src="images/logo.png" alt="Logo" class="logo-img">
+        </div>
+        <p>Your trusted partner for world-class travel experiences, sacred pilgrimages, and unforgettable
+          adventures
+          since 2005.</p>
+        <div class="social-links">
+          <a class="social-link" href="https://www.facebook.com/paradiseworldtravels"><i
+              class="fab fa-facebook-f"></i></a>
+          <a class="social-link"
+            href="https://www.instagram.com/paradiseworldtravels?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+              class="fab fa-instagram"></i></a>
+
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Packages</a>
+          <a href="offers.html"><i class="fas fa-chevron-right"></i> Offers</a>
+          <a href="umrah.html"><i class="fas fa-chevron-right"></i> Umrah</a>
+          <a href="hajj.html"><i class="fas fa-chevron-right"></i> Hajj</a>
+          <a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Top Destinations</h4>
+        <div class="footer-links">
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Dubai, UAE</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Makkah, Saudi Arabia</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Paris, France</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Bali, Indonesia</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Maldives</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Singapore</a>
+          <a href="packages.html"><i class="fas fa-chevron-right"></i> Turkey</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact">
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Shop No ff-5 Preside Complex,
+              Panpur Patiya, opp. Gramin Police Choki, Savagath, Savgadh, Himatnagar, Gujarat 383001, India</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 81287 86123<br>+91 84693 53585</span>
+          </div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>pwtravco@gmail.com</span>
+          </div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon – Sat: 9:00 AM – 7:00
+              PM<br>Sunday:
+              10:00 AM – 4:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span>Paradise Wide Package</span>. All Rights Reserved.</p>
+      <p>Designed with <span>♥</span> for travellers worldwide</p>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const scrollTopBtn = document.getElementById('scrollTop');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+        scrollTopBtn.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    function toggleMobile() {
+      mobileMenu.classList.toggle('open');
+    }
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    const revealItems = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+  </script>
+</body>
+
+</html>
