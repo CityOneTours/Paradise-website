@@ -1195,16 +1195,15 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <button onclick="showPage('home');closeMobile()">Home</button>
-    <button onclick="showPage('packages');closeMobile()">Packages</button>
-    <button onclick="showPage('offers');closeMobile()">Offers</button>
-    <button onclick="showPage('umrah');closeMobile()">Umrah</button>
-    <button onclick="showPage('hajj');closeMobile()">Hajj</button>
-    <button class="nav-link" onclick="window.location.href='visa.html'">
-      Visa & Flights
-    </button>
-    <button onclick="showPage('about');closeMobile()">About Us</button>
-    <button onclick="showPage('contact');closeMobile()">Contact</button>
+    <a href="index.html">Home</a>
+    <a href="umrah.html">Umrah</a>
+    <a href="hajj.html">Hajj</a>
+    <a href="packages.html" class="active">Packages</a>
+    <a href="offers.html">Offers</a>
+    <a href="visa.html">Visa & Flights</a>
+
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
   </div>
 
   <!-- ===== SCROLL TO TOP ===== -->
@@ -1278,7 +1277,7 @@
           <div class="ctab active" onclick="selectContinent('all',this)">
             <span class="ctab-icon"><i class="fas fa-globe"></i></span>
             <span class="ctab-name">All</span>
-            <span class="ctab-count">30 Packages</span>
+            <span class="ctab-count">24 Packages</span>
           </div>
           <div class="ctab" onclick="selectContinent('domestic',this)">
             <span class="ctab-icon"><i class="fas fa-map-marked-alt"></i></span>
@@ -1306,7 +1305,7 @@
           <div class="ctab" onclick="selectContinent('africa',this)">
             <span class="ctab-icon"><i class="fas fa-earth-africa"></i></span>
             <span class="ctab-name">Africa</span>
-            <span class="ctab-count">4 Packages</span>
+            <span class="ctab-count">1 Packages</span>
           </div>
 
           <!-- <div class="ctab" onclick="selectContinent('americas',this)">
@@ -1329,7 +1328,7 @@
         <div class="continent-banner-text">
           <h3 id="cBannerTitle">All Destinations</h3>
           <p id="cBannerSub">Explore our complete collection of curated tour packages</p>
-          <span class="pkg-count-badge" id="cBannerCount">31 Packages</span>
+          <span class="pkg-count-badge" id="cBannerCount">24 Packages</span>
         </div>
       </div>
 
